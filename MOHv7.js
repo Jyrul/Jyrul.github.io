@@ -26,6 +26,7 @@ let lab = {
       Convertizer: false,
       Shop:false,
       goBack: false,
+      Notice: false,
     },
     state: {
       game: true,
@@ -83,12 +84,6 @@ let lab = {
   let edition = {
     paintmode: 0,
   };
-
-  let notice = {
-    x: 11,
-    y: 8,
-    numberPageRead: 0,
-  }
   
   var Jiventory = [""];
   var JiventoryKey = [""];
@@ -135,6 +130,8 @@ let lab = {
   let Shop = [];
   let ObjectShop = [];
   let MoneyShop = [];
+
+  let Notice = [];
   
     //gestion
     function preload() {
@@ -222,6 +219,12 @@ let lab = {
       
       if(lab.state.game == true){
         switch (lab.level) {
+          case -1:
+            Level_1();
+            break;
+          case 9:
+            Level9();
+            break;
           case 8:
             Level8();
             break;
@@ -290,7 +293,7 @@ let lab = {
     //Loading Level
     function PreloadLevel() {
       switch (lab.level) {
-        case 8:
+        case -1:
           (lab.is.Switch = false),
           (lab.is.Teleport = false),
           (lab.is.Key = false),
@@ -301,7 +304,64 @@ let lab = {
           (lab.is.Electric = false),
           (lab.is.Convertizer = false),
           (lab.is.Shop = false),
+          (lab.is.goBack = false),
+          (lab.is.Notice = false),
+
+          resizeCanvas(400, 400);
+
+          //Position du joueur
+          j.x = 0;
+          j.y = 0;
+
+          //Taille de la grille
+          lab.grid.x = 5;
+          lab.grid.y = 5;
+    
+          //Taille d'une case
+          gridsize_x = width / lab.grid.x;
+          gridsize_y = height / lab.grid.y;
+    
+          //Proportion des murs
+          wall.Width = 3;
+          wall.Height = 3;
+
+          //Referencement des légendes
+          WallTab = levels.level_1.WallTab;
+          break;
+        case 9:
+          (lab.is.Switch = false),
+          (lab.is.Teleport = false),
+          (lab.is.Key = false),
+          (lab.is.PermaKey = false),
+          (lab.is.Volcano = false),
+          (lab.is.Forest = false),
+          (lab.is.River = false),
+          (lab.is.Electric = false),
+          (lab.is.Convertizer = false),
+          (lab.is.Shop = false),
+          (lab.is.goBack = false),
+          (lab.is.Notice = false),
+
+          //Position du joueur
+          j.x = 7;
+          j.y = 8;
+
+          //Referencement des légendes
+          WallTab = levels.level9.WallTab;
+          break;
+        case 8:
+          (lab.is.Switch = false),
+          (lab.is.Teleport = true),
+          (lab.is.Key = true),
+          (lab.is.PermaKey = false),
+          (lab.is.Volcano = true),
+          (lab.is.Forest = true),
+          (lab.is.River = false),
+          (lab.is.Electric = false),
+          (lab.is.Convertizer = false),
+          (lab.is.Shop = false),
           (lab.is.goBack = true),
+          (lab.is.Notice = true),
 
           resizeCanvas(800, 400);
     
@@ -334,46 +394,15 @@ let lab = {
           //Proportion des murs
           wall.Width = 1.5;
           wall.Height = 1.5;
-
-          //Initialisation des distance du shop
-          shop.distance = {
-            slot:{
-              x: 200,
-              y: height / 3
-            },
-          };
-
-          shop.distance = {
-            slot:{
-              x: 200,
-              y: height / 3
-            },
-            object: shop.distance.slot.x + shop.slot.width / 2, //donnée en x
-            price: shop.slot.height + shop.distance.slot.y, //donnée en y
-            description: 20 + shop.distance.slot.y + shop.slot.height / 2,
-          };
     
           //Référencement des légendes
           WallTab = levels.level8.WallTab;
-          Switch = levels.level7.Switch;
-          WallSwitch = levels.level7.WallSwitch;
-          Teleport = levels.level7.Teleport;
-          KeyDoor = levels.level7.KeyDoor;
-          KeyObject = levels.level7.KeyObject;
-          KeyMat = levels.level7.KeyMat;
-          RiverTab = levels.level7.RiverTab;
-          RiverObject = levels.level7.RiverObject;
-          ForestTab = levels.level7.ForestTab;
-          ForestObject = levels.level7.ForestObject;
-          VolcanoTab = levels.level7.VolcanoTab;
-          VolcanoObject = levels.level7.VolcanoObject;
-          ElectricDoor = levels.level7.ElectricDoor;
-          ElectricInterupt = levels.level7.ElectricInterupt;
-          Convertizer = levels.level7.Convertizer;
-          Jiventory = levels.level7.Jiventory;
-          Shop = levels.level7.Shop;
-          ObjectShop = levels.level7.ObjectShop;
-          MoneyShop = levels.level7.MoneyShop;
+          Teleport = levels.level8.Teleport;
+          KeyDoor = levels.level8.KeyDoor;
+          ForestTab = levels.level8.ForestTab;
+          VolcanoTab = levels.level8.VolcanoTab;
+          Notice = levels.level8.Notice;
+          Jiventory = levels.level8.Jiventory;
           
           break;
         case 7:
@@ -388,6 +417,7 @@ let lab = {
           (lab.is.Convertizer = true),
           (lab.is.Shop = true),
           (lab.is.goBack = true),
+          (lab.is.Notice = false),
 
           resizeCanvas(1200, 600);
     
@@ -804,6 +834,9 @@ let lab = {
           (lab.is.Shop = false),
           (lab.is.goBack = false),
 
+          //Au cas ou le joueur recommence
+          resizeCanvas(400, 400);
+
           //Position du joueur
           j.x = 2;
           j.y = 0;
@@ -1178,6 +1211,10 @@ let lab = {
         }
       }
       
+      //2ème sortie level8
+      if(lab.level == 8){
+        rect(13 * gridsize_x, height, gridsize_x, -wall.Height * 2);
+      }
     }
     function Leg_ElectricDoor() {
       fill(0);
@@ -1375,44 +1412,95 @@ let lab = {
       });
     }
     function Leg_Notice(){
-      stroke(20);
-      noFill();
-      rect(gridsize_x * notice.x + gridsize_x / 4, gridsize_y * notice.y + gridsize_y / 4, gridsize_x / 2, gridsize_y / 2);
-      line(gridsize_x * notice.x + gridsize_x / 3, gridsize_y * notice.y + gridsize_y / 3 + 2, gridsize_x * notice.x + 2 * gridsize_x / 3, gridsize_y * notice.y + gridsize_y / 3 + 2);
-      line(gridsize_x * notice.x + gridsize_x / 3, gridsize_y * notice.y + gridsize_y / 2, gridsize_x * notice.x + 2 * gridsize_x / 3, gridsize_y * notice.y + gridsize_y / 2);
-      line(gridsize_x * notice.x + gridsize_x / 3, gridsize_y * notice.y + 2 * gridsize_y / 3 - 2, gridsize_x * notice.x + 2 * gridsize_x / 3, gridsize_y * notice.y + 2 * gridsize_y / 3 - 2);
-    
-      noStroke();
-      fill(0);
-      textStyle(NORMAL);
-      textAlign(LEFT, TOP);
-      textSize(10);
-      switch (notice.numberPageRead) {
-        case 1:
-          text("Jour 15 : \nPerdu, et dans mes pensées.", notice.x * gridsize_x, notice.y * gridsize_y + gridsize_y + 2);
-          break;
-        case 2:
-          text("À force d'explorer je me suis\ndefinivement perdu.", notice.x * gridsize_x, notice.y * gridsize_y + gridsize_y + 2);
-          break;
-        case 3:
-          text("Il me reste pas mal de provision encore,\nmême si les espèces sont toutes nouvelles\nj'ai appris en reconnaître certaine.\nOn est pas les seul ici.", notice.x * gridsize_x, notice.y * gridsize_y + gridsize_y + 2);
-          break;
-        case 4:
-          text("Il y a pas mal de ruine dans les parrages,\ndes gens on pus y vivre, mais a quel prix ?", notice.x * gridsize_x, notice.y * gridsize_y + gridsize_y + 2);
-          break;
-        case 5:
-          text("Je me rappelle plus de mon nom,\nc'est très embêtant.", notice.x * gridsize_x, notice.y * gridsize_y + gridsize_y + 2);
-          break;
-        case 6:
-          text("On aura qu'a dire que je porterais\nun nouveau nom.\nJe vais le noter pour être sur.", notice.x * gridsize_x, notice.y * gridsize_y + gridsize_y + 2);
-          break;
-        case 7:
-          text("Après reflexion,\nmon nouveau nom sera...", notice.x * gridsize_x, notice.y * gridsize_y + gridsize_y + 2);
-          break;
-        case 8:
-          text("Curropiton", notice.x * gridsize_x, notice.y * gridsize_y + gridsize_y + 2);
-          break;
-      }
+      Notice.forEach((item, index, Notice) => {
+        //Affichage de l'icone
+        stroke(20);
+        noFill();
+
+        rect(gridsize_x * Notice[index][0] + gridsize_x / 4, gridsize_y * Notice[index][1] + gridsize_y / 4, gridsize_x / 2, gridsize_y / 2);
+        line(gridsize_x * Notice[index][0] + gridsize_x / 3, gridsize_y * Notice[index][1] + gridsize_y / 3 + 2, gridsize_x * Notice[index][0] + 2 * gridsize_x / 3, gridsize_y * Notice[index][1] + gridsize_y / 3 + 2);
+        line(gridsize_x * Notice[index][0] + gridsize_x / 3, gridsize_y * Notice[index][1] + gridsize_y / 2, gridsize_x * Notice[index][0] + 2 * gridsize_x / 3, gridsize_y * Notice[index][1] + gridsize_y / 2);
+        line(gridsize_x * Notice[index][0] + gridsize_x / 3, gridsize_y * Notice[index][1] + 2 * gridsize_y / 3 - 2, gridsize_x * Notice[index][0] + 2 * gridsize_x / 3, gridsize_y * Notice[index][1] + 2 * gridsize_y / 3 - 2);
+          
+        //Affichage du texte
+        noStroke();
+        fill(0);
+        textStyle(NORMAL);
+        textAlign(LEFT, TOP);
+        textSize(10);
+
+        if(Notice[index][2] == "curro"){
+          switch (Notice[index][3]) {
+            case 0:
+              text("    P ↑", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 3);
+              break;
+            case 1:
+              text("Jour 6 : \nPerdu, et dans mes pensées.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              break;
+            case 2:
+              text("À force d'explorer je me suis\ndefinivement perdu.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              break;
+            case 3:
+              text("Il me reste encore des provisions,\nmais les espèces sont toutes nouvelles\ndonc ça risque de devenir compliquer.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              break;
+            case 4:
+              text("Il y a pas mal de ruine aux alentours,\ndes gens on pus y vivre, mais a\nquel prix ?", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              break;
+            case 5:
+              text("Je vous laisse cet abris de fortune.\nVous y trouverez des documents\nsur la faune et la flore.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              break;
+            case 6:
+              text("Si vous me chercher,\nje part pour le nord.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              break;
+            case 7:
+              text("J'ai oublié mon nom,\nc'est embêtant.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              break;
+            case 8:
+              text("On aura qu'a dire que j'en porterais\nun nouveau.\nJe vais le noter pour être sur.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              break;
+            case 9:
+              text("Curropiton.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              break;
+          }
+        }
+
+        if(Notice[index][2] == "research of life"){
+          switch (Notice[index][3]) {
+            case 0:
+              text("    P ↑", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 3);
+              break;
+            case 1:
+              text("Blind Bolt\nDanger : Faible", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              break;
+            case 2:
+              text("Un mix entre un papillon et une luciole.\nles écailles de ces ailes produisent de la\nlumière en permanence.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              break;
+            case 3:
+              text("Vivant en grand groupe dans les forêts,\nIl arrive que l'on confonde leur présence\nà celui d'un ciel en journée.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              break;
+            case 4:
+              text("Leurs écailles sont également un\nexcelent conbustible.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              break;
+            case 5:
+              text("Nosha\nDanger : Modéré", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              break;
+            case 6:
+              text("Les Nosha sont des créatures habitant des\nobjets animés.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              break;
+            case 7:
+              text("Une fois habité, l'ombre de l'hote deviendra\nentièrement opaque.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              break;
+            case 8:
+              text("Elles ne sont pas connus pour être aggressive.\nSi vous ne bougez pas, il ne se passera rien\net elle partira.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              break;
+            case 9:
+              text("Mais si vous vous agiter, un oeil apparaîtera\ndans votre ombre pour vous saisir et vous aspirez.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              break;
+          }
+        }
+      });
+      
+      
     }
 
     //Affichage du Shop
@@ -1705,7 +1793,7 @@ let lab = {
       };
       
       //Replacer l'UI selon la position du joueur
-      if(j.x <= lab.grid.x / 4){
+      if(j.x <= lab.grid.x / 2){
         UIdist.space.onLeft = width - UIdist.space.onLeft - UIdist.object.size;
       }
   
@@ -1994,9 +2082,36 @@ let lab = {
     }
   
     //Level
-    function Level8() {
+    function Level_1() {
       Leg_Wall();
-      Leg_Notice()
+
+      Leg_Notice();
+
+      Interface();
+    }
+    function Level9() {
+      textSize(50);
+      fill(0);
+      noStroke();
+      textAlign(CENTER, CENTER);
+      text("Merci d'avoir jouer !!", width / 2, height / 2);
+      
+      textAlign(LEFT, BOTTOM);
+      textSize(12);
+      text("Insta : jyrul.creation\nBehance : Elias Rochelle", 20, height - 20);
+
+      textAlign(CENTER, CENTER);
+      textSize(40);
+      text("↻", 16 * gridsize_x + gridsize_x / 2, 7 * gridsize_y + gridsize_y / 2);
+    }
+    function Level8() {
+      Leg_Zone();
+      Leg_Teleport();
+      
+      Leg_Wall();
+      Leg_Key();
+
+      Leg_Notice();
 
       Interface();
     }
@@ -2915,10 +3030,14 @@ let lab = {
         }
       
         //Condition de changement de niveau
-        if(lab.is.goBack == true && j.x == lab.enter.x - 1 && j.y == lab.enter.y){
+        if(lab.level == 8 && j.x == 13 && j.y == 10){
+          lab.preloadlevel = true;
+          lab.level = -1;
+        }else if(lab.is.goBack == true && j.x == lab.enter.x - 1 && j.y == lab.enter.y){
           lab.level -= 1;
           lab.preloadlevel = true;
           lab.state.levelDown = true;
+          if(lab.level == -2){lab.level = 8;}
         }else if (
           j.x == -1 ||
           j.y == -1 ||
@@ -2928,7 +3047,13 @@ let lab = {
           lab.level += 1;
           lab.preloadlevel = true;
         }
-      
+
+        //Recommencer
+        if(lab.level == 9 && j.x == 16 && j.y == 7){
+          lab.preloadlevel = true;
+          lab.level = 0;
+        }
+
         //////// ////////
       
         //Teleport
@@ -2982,24 +3107,17 @@ let lab = {
 
         //Volcano
         if(lab.is.Volcano == true){
-          console.log("a");
           if (j.go.volcano == false) {
-            console.log("b");
             let volcanomap = VolcanoTab[j.y][j.x];
             if (volcanomap == "V") {
-              console.log("c");
               if (optionup == true) {
                 j.y += 1;
-                console.log("d");
               } else if (optiondown == true) {
                 j.y -= 1;
-                console.log("d");
               } else if (optionleft == true) {
                 j.x += 1;
-                console.log("d");
               } else if (optionright == true) {
                 j.x -= 1;
-                console.log("d");
               }
             }
           }
@@ -3056,15 +3174,19 @@ let lab = {
         }
       
         //Notice
-        if (lab.level == 8 && j.x == notice.x && j.y == notice.y) {
-          if(notice.numberPageRead == 9){
-            notice.numberPageRead = 0;
-          }
-          if(key === "p"){
-            notice.numberPageRead += 1;
-          }
-        }else if(lab.level == 8 || notice.numberPageRead > 0 || j.x != notice.x || j.y != notice.y){
-          notice.numberPageRead = 0;
+        if(lab.is.Notice == true){
+          Notice.forEach((item, index, Notice) => {
+            if (j.x == Notice[index][0] && j.y == Notice[index][1]) {
+              if(Notice[index][3] == 9){
+                Notice[index][3] = 0;
+              }
+              if(key === "p"){
+                Notice[index][3] += 1;
+              }
+            }else if(lab.level == 8 || Notice[index][3] > 0 || j.x != Notice[index][0] || j.y != Notice[index][1]){
+              Notice[index][3] = 0;
+            }
+            });
         }
 
         //////// ////////
