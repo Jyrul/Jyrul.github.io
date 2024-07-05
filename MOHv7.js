@@ -62,7 +62,7 @@ let lab = {
       forest: false,
       volcano: false,
     },
-    moneynbr: 999,
+    moneynbr: 0,
     permaObject: {
       SRkeyy: false,
     },
@@ -381,7 +381,7 @@ let lab = {
           (lab.is.Electric = false),
           (lab.is.Convertizer = false),
           (lab.is.Shop = false),
-          (lab.is.goBack = true),
+          (lab.is.goBack = false),
           (lab.is.Notice = true),
 
           resizeCanvas(800, 400);
@@ -438,7 +438,7 @@ let lab = {
           (lab.is.Electric = true),
           (lab.is.Convertizer = true),
           (lab.is.Shop = true),
-          (lab.is.goBack = true),
+          (lab.is.goBack = false),
           (lab.is.Notice = false),
 
           resizeCanvas(1200, 600);
@@ -1450,7 +1450,7 @@ let lab = {
         fill(0);
         textStyle(NORMAL);
         textAlign(LEFT, TOP);
-        textSize(15);
+        textSize(10);
 
         if(Notice[index][2] == "curro"){
           switch (Notice[index][3]) {
@@ -1461,25 +1461,25 @@ let lab = {
               text("Jour 6 : \nPerdu, et dans mes pensées.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
               break;
             case 2:
-              text("À force d'explorer je me suis\ndefinivement perdu.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              text("À force d'explorer, je me suis\ndéfinivement perdu.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
               break;
             case 3:
-              text("Il me reste encore des provisions,\nmais les espèces sont toutes nouvelles\ndonc ça risque de devenir compliquer.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              text("Il me reste encore des provisions,\nmais les espèces sont toutes nouvelles\ndonc ça risque de devenir compliqué.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
               break;
             case 4:
-              text("Il y a pas mal de ruine aux alentours,\ndes gens on pus y vivre, mais a\nquel prix ?", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              text("Il y a pas mal de ruines aux alentours,\ndes gens ont pu y vivre, mais à\nquel prix ?", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
               break;
             case 5:
-              text("Je vous laisse cet abris de fortune.\nVous y trouverez des documents\nsur la faune et la flore.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              text("Je vous laisse cet abri de fortune.\nVous y trouverez des documents\nsur la faune et la flore.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
               break;
             case 6:
-              text("Si vous me chercher,\nje part pour le nord.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              text("Si vous me cherchez,\nje pars pour le nord.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
               break;
             case 7:
               text("J'ai oublié mon nom,\nc'est embêtant.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
               break;
             case 8:
-              text("On aura qu'a dire que j'en porterais\nun nouveau.\nJe vais le noter pour être sur.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              text("On aura qu'à dire que j'en porterai\nun nouveau.\nJe vais le noter pour être sûr.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
               break;
             case 9:
               text("Curropiton.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
@@ -1496,13 +1496,13 @@ let lab = {
               text("Blind Bolt\nDanger : Faible", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
               break;
             case 2:
-              text("Un mix entre un papillon et une luciole.\nles écailles de ces ailes produisent de la\nlumière en permanence.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              text("Un mix entre un papillon et une luciole.\nles écailles de ses ailes produisent de la\nlumière en permanence.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
               break;
             case 3:
-              text("Vivant en grand groupe dans les forêts,\nIl arrive que l'on confonde leur présence\nà celui d'un ciel en journée.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              text("Vivants en grand groupe dans les forêts,\nil arrive que l'on confonde leur présence\nà celle d'un ciel en journée.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
               break;
             case 4:
-              text("Leurs écailles sont également un\nexcelent conbustible.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              text("Leurs écailles sont également un\nexcellent combustible.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
               break;
             case 5:
               text("Nosha\nDanger : Modéré", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
@@ -1511,16 +1511,22 @@ let lab = {
               text("Les Nosha sont des créatures habitant des\nobjets animés.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
               break;
             case 7:
-              text("Une fois habité, l'ombre de l'hote deviendra\nentièrement opaque.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              text("Une fois habité, l'ombre de l'hôte deviendra\nentièrement opaque.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
               break;
             case 8:
-              text("Elles ne sont pas connus pour être aggressive.\nSi vous ne bougez pas, il ne se passera rien\net elle partira.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              text("Elles ne sont pas connues pour être agressives.\nSi vous ne bougez pas, il ne se passera rien\net elles partiront.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
               break;
             case 9:
-              text("Mais si vous vous agiter, un oeil apparaîtera\ndans votre ombre pour vous saisir et vous aspirez.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
+              text("Mais si vous vous agitez, un œil apparaîtra\ndans votre ombre pour vous saisir et vous aspirer.", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 2);
               break;
           }
         }
+
+        noStroke();
+        fill(0);
+        textStyle(NORMAL);
+        textAlign(LEFT, TOP);
+        textSize(15);
 
         if(Notice[index][2] == "live and work"){
           switch (Notice[index][3]) {
@@ -1531,25 +1537,22 @@ let lab = {
               text("Temps de travail pour le réaliser :\n50h", Notice[index][0] * gridsize_x + gridsize_x + 15, Notice[index][1] * gridsize_y + 10);
               break;
             case 2:
-              text("Nombres de légendes total\ncréer à ce jour :\n102", Notice[index][0] * gridsize_x + gridsize_x + 15, Notice[index][1] * gridsize_y + 10);
+              text("Nombre total de légendes\ncréées à ce jour :\n102", Notice[index][0] * gridsize_x + gridsize_x + 15, Notice[index][1] * gridsize_y + 10);
               break;
             case 3:
-              text("Origine du jeu :\nUn labyrinthe sur un paquet de gateau", Notice[index][0] * gridsize_x + gridsize_x + 15, Notice[index][1] * gridsize_y + 10);
+              text("Origine du jeu :\nUn labyrinthe sur un paquet de gâteau", Notice[index][0] * gridsize_x + gridsize_x + 15, Notice[index][1] * gridsize_y + 10);
               break;
             case 4:
-              text("Date du premier labyrinthe créer :\n27 novembre 2017\nFormat A4 petit carreaux", Notice[index][0] * gridsize_x + gridsize_x + 15, Notice[index][1] * gridsize_y + 10);
+              text("Date du premier labyrinthe créé :\n27 novembre 2017\nFormat A4 petits carreaux", Notice[index][0] * gridsize_x + gridsize_x + 15, Notice[index][1] * gridsize_y + 10);
               break;
             case 5:
-              text("Merci à Florian Lasalle qui m'a\nbeaucoup aidé à me lancé quand\nj'était en 4ème.", Notice[index][0] * gridsize_x + gridsize_x + 15, Notice[index][1] * gridsize_y + 10);
+              text("Et puis, bah merci à vous.\nDe vous êtes autant investi\nà avoir cette clef rouge.", Notice[index][0] * gridsize_x + gridsize_x + 15, Notice[index][1] * gridsize_y + 10);
               break;
             case 6:
-              text("Et puis bah merci à vous.\nDe vous êtes autant investit\nà avoir cette clef rouge.", Notice[index][0] * gridsize_x + gridsize_x + 15, Notice[index][1] * gridsize_y + 10);
+              text("J'espère que les stats vous auront satisfaits ehe.", Notice[index][0] * gridsize_x + gridsize_x + 15, Notice[index][1] * gridsize_y + 10);
               break;
             case 7:
-              text("J'espère que les stats vous aurons satisfait ehe.", Notice[index][0] * gridsize_x + gridsize_x + 15, Notice[index][1] * gridsize_y + 10);
-              break;
-            case 8:
-              text("Je vous retiens pas plus que ça.\nÀ bientôt pour la suite !", Notice[index][0] * gridsize_x + gridsize_x + 15, Notice[index][1] * gridsize_y + 10);
+              text("Je ne vous retiens pas plus que ça.\nÀ bientôt pour la suite !", Notice[index][0] * gridsize_x + gridsize_x + 15, Notice[index][1] * gridsize_y + 10);
               break;
           }
         }
@@ -3631,8 +3634,15 @@ let lab = {
       //PermaObject
         //SRKeyy
       if(j.permaObject.SRkeyy == true && lab.preloadlevel == true){
-        append(Jiventory, ".RedKey");
-        Jiventory = sort(Jiventory, Jiventory.length);
+        let give = true;
+        Jiventory.forEach((item, index, Jiventory) => {
+          if(item == ".RedKey"){give = false;}
+        });
+
+        if(give == true){
+          append(Jiventory, ".RedKey");
+          Jiventory = sort(Jiventory, Jiventory.length);
+        }
       }
 
       //Effet des object actifs
@@ -3660,35 +3670,5 @@ let lab = {
     //1683
     //2361
     //2906
-    //3652
-
-    /*
-Jour 6 : \nPerdu, et dans mes pensées.
-À force d'explorer je me suis\ndefinivement perdu.
-Il me reste encore des provisions,\nmais les espèces sont toutes nouvelles\ndonc ça risque de devenir compliquer.
-Il y a pas mal de ruine aux alentours,\ndes gens on pus y vivre, mais a\nquel prix ?
-Je vous laisse cet abris de fortune.\nVous y trouverez des documents\nsur la faune et la flore.
-Si vous me chercher,\nje part pour le nord.
-J'ai oublié mon nom,\nc'est embêtant.
-On aura qu'a dire que j'en porterais\nun nouveau.\nJe vais le noter pour être sur.
-Curropiton.
-             
-Blind Bolt\nDanger : Faible
-Un mix entre un papillon et une luciole.\nles écailles de ces ailes produisent de la\nlumière en permanence.
-Vivant en grand groupe dans les forêts,\nIl arrive que l'on confonde leur présence\nà celui d'un ciel en journée.
-Leurs écailles sont également un\nexcelent conbustible.
-Nosha\nDanger : Modéré
-Les Nosha sont des créatures habitant des\nobjets animés.
-Une fois habité, l'ombre de l'hote deviendra\nentièrement opaque.
-Elles ne sont pas connus pour être aggressive.\nSi vous ne bougez pas, il ne se passera rien\net elle partira.
-Mais si vous vous agiter, un oeil apparaîtera\ndans votre ombre pour vous saisir et vous aspirez.
-                  
-Temps de travail pour le réaliser :\n50h
-Nombres de légendes total\ncréer à ce jour :\n102
-Origine du jeu :\nUn labyrinthe sur un paquet de gateau
-Date du premier labyrinthe créer :\n27 novembre 2017\nFormat A4 petit carreaux
-Merci à Florian Lasalle qui m'a\nbeaucoup aidé à me lancé quand\nj'était en 4ème.
-Et puis bah merci à vous.\nDe vous êtes autant investit\nà avoir cette clef rouge.
-J'espère que les stats vous aurons satisfait ehe.
-Je vous retiens pas plus que ça.\nÀ bientôt pour la suite !
-    */
+    //3662
+    //Ajouté la connectivité entre les niveaux
