@@ -2159,7 +2159,7 @@ let lab = {
       fill(0);
       noStroke();
       textAlign(CENTER, CENTER);
-      text("Merci d'avoir jouer !!", width / 2, height / 2);
+      text("Merci d'avoir joué !!", width / 2, height / 2);
       
       textAlign(LEFT, BOTTOM);
       textSize(12);
