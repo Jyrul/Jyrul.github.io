@@ -1,16 +1,44 @@
 levels = {
   level_1: {
     WallTab: [
-      ['01', '01', '01', '01', '10'],
-      ['02', '00', '00', '00', '04'],
-      ['02', '00', '00', '00', '04'],
-      ['02', '00', '00', '00', '04'],
-      ['09', '03', '03', '03', '08'],
+      ['05', '10', '13', '13', '13'],
+      ['14', '00', '00', '03', '08'],
+      ['14', '00', '03', '01', '10'],
+      ['07', '04', '07', '03', '08'],
+      ['11', '09', '08', '07', '01'],
+    ], //nmr de tuiles
+
+    RiverTab: [
+      ['o', 'o', 'o', 'o', 'o'],
+      ['o', 'o', 'o', 'o', 'o'],
+      ['R', 'o', 'o', 'R', 'R'],
+      ['o', 'o', 'o', 'R', 'R'],
+      ['o', 'o', 'o', 'o', 'o'],
+    ], //nmr de tuiles
+
+    ForestTab: [
+      ['o', 'o', 'F', 'F', 'o'],
+      ['o', 'o', 'o', 'o', 'o'],
+      ['o', 'o', 'o', 'o', 'o'],
+      ['o', 'o', 'o', 'o', 'o'],
+      ['o', 'F', 'o', 'o', 'o'],
+    ], //nmr de tuiles
+
+    VolcanoTab: [
+      ['o', 'o', 'o', 'o', 'o'],
+      ['V', 'o', 'o', 'o', 'o'],
+      ['o', 'o', 'o', 'o', 'o'],
+      ['V', 'o', 'V', 'o', 'o'],
+      ['V', 'o', 'o', 'o', 'o'],
     ], //nmr de tuiles
 
     Notice: [
-      [3, 4, "life", 0],
-    ], //x, y, nom, page    
+      [0, 2, "live and work", 0],
+    ], //x, y, nom, page
+    
+    Jiventory: [""], //object basique
+    JiventoryKey: [""], //object clef
+    JiventoryTools: [""], //object outils
   },
   level9: {
     WallTab: [
@@ -24,7 +52,11 @@ levels = {
       ['02', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '04'],
       ['02', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '04'],
       ['09', '03', '03', '03', '03', '03', '03', '03', '03', '03', '03', '03', '03', '03', '03', '03', '03', '03', '03', '08']
-    ], //nmr de tuiles
+    ], //nmr de tuiles*
+
+    Jiventory: [""], //object basique
+    JiventoryKey: [""], //object clef
+    JiventoryTools: [""], //object outils
   },
   level8: {
     WallTab: [
@@ -79,7 +111,9 @@ levels = {
       [11, 8, "research of life", 0],
     ], //x, y, nom, page
 
-    Jiventory: ["", ".RedKey"], //object basique
+    Jiventory: [""], //object basique
+    JiventoryKey: [""], //object clef
+    JiventoryTools: [""], //object outils
   },
   level7: {
     WallTab: [

@@ -13,7 +13,7 @@ let lab = {
       y: 0,
       side: 0,
     },
-    level: 8,
+    level: 0,
     is: {
       Switch: false,
       Teleport: false,
@@ -33,7 +33,7 @@ let lab = {
       edition: false,
       levelDown: false,
     },
-    allowToEdit: true,
+    allowToEdit: false,
     paintvalue: "00",
     graph: {
       old: false,
@@ -62,7 +62,7 @@ let lab = {
       forest: false,
       volcano: false,
     },
-    moneynbr: 0,
+    moneynbr: 999,
     permaObject: {
       SRkeyy: false,
     },
@@ -298,14 +298,14 @@ let lab = {
           (lab.is.Teleport = false),
           (lab.is.Key = false),
           (lab.is.PermaKey = false),
-          (lab.is.Volcano = false),
-          (lab.is.Forest = false),
-          (lab.is.River = false),
+          (lab.is.Volcano = true),
+          (lab.is.Forest = true),
+          (lab.is.River = true),
           (lab.is.Electric = false),
           (lab.is.Convertizer = false),
           (lab.is.Shop = false),
-          (lab.is.goBack = false),
-          (lab.is.Notice = false),
+          (lab.is.goBack = true),
+          (lab.is.Notice = true),
 
           resizeCanvas(400, 400);
 
@@ -313,9 +313,24 @@ let lab = {
           j.x = 0;
           j.y = 0;
 
+          //Position de la sortie
+          lab.exit.x = 0;
+          lab.exit.y = 9;
+          lab.exit.side = 4;
+
+          //Position de l'entré
+          lab.enter.x = 0;
+          lab.enter.y = 0;
+          lab.enter.side = 2;
+
           //Taille de la grille
           lab.grid.x = 5;
           lab.grid.y = 5;
+
+          //Accès à toutes zones
+          j.go.river = true;
+          j.go.forest = true;
+          j.go.volcano = true;
     
           //Taille d'une case
           gridsize_x = width / lab.grid.x;
@@ -327,6 +342,11 @@ let lab = {
 
           //Referencement des légendes
           WallTab = levels.level_1.WallTab;
+          RiverTab = levels.level_1.RiverTab;
+          ForestTab = levels.level_1.ForestTab;
+          VolcanoTab = levels.level_1.VolcanoTab;
+          Notice = levels.level_1.Notice;
+          Jiventory = levels.level_1.Jiventory;
           break;
         case 9:
           (lab.is.Switch = false),
@@ -348,6 +368,7 @@ let lab = {
 
           //Referencement des légendes
           WallTab = levels.level9.WallTab;
+          Jiventory = levels.level9.Jiventory;
           break;
         case 8:
           (lab.is.Switch = false),
@@ -372,6 +393,7 @@ let lab = {
           //Réinitialiser les autorisations du joueur
           j.go.river = false;
           j.go.forest = false;
+          j.go.volcano = false;
           
           //Position de la sortie
           lab.exit.x = 0;
@@ -583,7 +605,7 @@ let lab = {
           (lab.is.Switch = true),
           (lab.is.Teleport = true),
           (lab.is.Key = true),
-          (lab.is.PermaKey = true),
+          (lab.is.PermaKey = false),
           (lab.is.Volcano = false),
           (lab.is.Forest = true),
           (lab.is.River = true),
@@ -866,7 +888,8 @@ let lab = {
       JiventoryManager();
       lab.preloadlevel = false;
     }
-  
+
+    
     //Affichage des Legendes
     function Leg_Zone() {
       if (lab.is.River == true) {
@@ -1427,7 +1450,7 @@ let lab = {
         fill(0);
         textStyle(NORMAL);
         textAlign(LEFT, TOP);
-        textSize(10);
+        textSize(15);
 
         if(Notice[index][2] == "curro"){
           switch (Notice[index][3]) {
@@ -1498,10 +1521,43 @@ let lab = {
               break;
           }
         }
+
+        if(Notice[index][2] == "live and work"){
+          switch (Notice[index][3]) {
+            case 0:
+              text("      P ↑", Notice[index][0] * gridsize_x, Notice[index][1] * gridsize_y + gridsize_y + 3);
+              break;
+            case 1:
+              text("Temps de travail pour le réaliser :\n50h", Notice[index][0] * gridsize_x + gridsize_x + 15, Notice[index][1] * gridsize_y + 10);
+              break;
+            case 2:
+              text("Nombres de légendes total\ncréer à ce jour :\n102", Notice[index][0] * gridsize_x + gridsize_x + 15, Notice[index][1] * gridsize_y + 10);
+              break;
+            case 3:
+              text("Origine du jeu :\nUn labyrinthe sur un paquet de gateau", Notice[index][0] * gridsize_x + gridsize_x + 15, Notice[index][1] * gridsize_y + 10);
+              break;
+            case 4:
+              text("Date du premier labyrinthe créer :\n27 novembre 2017\nFormat A4 petit carreaux", Notice[index][0] * gridsize_x + gridsize_x + 15, Notice[index][1] * gridsize_y + 10);
+              break;
+            case 5:
+              text("Merci à Florian Lasalle qui m'a\nbeaucoup aidé à me lancé quand\nj'était en 4ème.", Notice[index][0] * gridsize_x + gridsize_x + 15, Notice[index][1] * gridsize_y + 10);
+              break;
+            case 6:
+              text("Et puis bah merci à vous.\nDe vous êtes autant investit\nà avoir cette clef rouge.", Notice[index][0] * gridsize_x + gridsize_x + 15, Notice[index][1] * gridsize_y + 10);
+              break;
+            case 7:
+              text("J'espère que les stats vous aurons satisfait ehe.", Notice[index][0] * gridsize_x + gridsize_x + 15, Notice[index][1] * gridsize_y + 10);
+              break;
+            case 8:
+              text("Je vous retiens pas plus que ça.\nÀ bientôt pour la suite !", Notice[index][0] * gridsize_x + gridsize_x + 15, Notice[index][1] * gridsize_y + 10);
+              break;
+          }
+        }
       });
       
       
     }
+
 
     //Affichage du Shop
     function ShopLevel7(){
@@ -1770,6 +1826,7 @@ let lab = {
   
       Interface();
     }
+
   
     //Affichage de l'interface
     function Interface(){
@@ -2083,7 +2140,12 @@ let lab = {
   
     //Level
     function Level_1() {
+      Leg_Zone();
+      
       Leg_Wall();
+
+      fill(255);
+      rect(gridsize_x * 3 + wall.Width, gridsize_y * 4  + wall.Height, gridsize_x * 2, gridsize_y);
 
       Leg_Notice();
 
@@ -3037,7 +3099,9 @@ let lab = {
           lab.level -= 1;
           lab.preloadlevel = true;
           lab.state.levelDown = true;
-          if(lab.level == -2){lab.level = 8;}
+          if(lab.level == -2){
+            lab.level = 8;
+          }
         }else if (
           j.x == -1 ||
           j.y == -1 ||
@@ -3338,6 +3402,7 @@ let lab = {
     
           //Gain de l'objet
           append(Jiventory, ObjectShop[0][2]);
+          Jiventory = sort(Jiventory, Jiventory.length);
           j.go.river = true;
         }
     
@@ -3356,6 +3421,7 @@ let lab = {
     
           //Gain de l'objet
           append(Jiventory, ObjectShop[1][2]);
+          Jiventory = sort(Jiventory, Jiventory.length);
           j.go.forest = true;
         }
     
@@ -3375,6 +3441,7 @@ let lab = {
       
           //Gain de l'objet
           append(Jiventory, ObjectShop[2][2]);
+          Jiventory = sort(Jiventory, Jiventory.length);
         }
       }
     }  
@@ -3405,6 +3472,7 @@ let lab = {
       }
     }
 
+
     //Gestion d'Inventaire a uni sac
     function JiventoryManager(){
       //Keyobject
@@ -3427,7 +3495,7 @@ let lab = {
             if (j.x == KeyMat[index][0] && j.y == KeyMat[index][1]) {
               append(Jiventory, KeyMat[index][3]);
               KeyMat[index][2] = false;
-              Jiventory= sort(Jiventory, Jiventory.length);
+              Jiventory = sort(Jiventory, Jiventory.length);
             }
           }
         });
@@ -3592,3 +3660,35 @@ let lab = {
     //1683
     //2361
     //2906
+    //3652
+
+    /*
+Jour 6 : \nPerdu, et dans mes pensées.
+À force d'explorer je me suis\ndefinivement perdu.
+Il me reste encore des provisions,\nmais les espèces sont toutes nouvelles\ndonc ça risque de devenir compliquer.
+Il y a pas mal de ruine aux alentours,\ndes gens on pus y vivre, mais a\nquel prix ?
+Je vous laisse cet abris de fortune.\nVous y trouverez des documents\nsur la faune et la flore.
+Si vous me chercher,\nje part pour le nord.
+J'ai oublié mon nom,\nc'est embêtant.
+On aura qu'a dire que j'en porterais\nun nouveau.\nJe vais le noter pour être sur.
+Curropiton.
+             
+Blind Bolt\nDanger : Faible
+Un mix entre un papillon et une luciole.\nles écailles de ces ailes produisent de la\nlumière en permanence.
+Vivant en grand groupe dans les forêts,\nIl arrive que l'on confonde leur présence\nà celui d'un ciel en journée.
+Leurs écailles sont également un\nexcelent conbustible.
+Nosha\nDanger : Modéré
+Les Nosha sont des créatures habitant des\nobjets animés.
+Une fois habité, l'ombre de l'hote deviendra\nentièrement opaque.
+Elles ne sont pas connus pour être aggressive.\nSi vous ne bougez pas, il ne se passera rien\net elle partira.
+Mais si vous vous agiter, un oeil apparaîtera\ndans votre ombre pour vous saisir et vous aspirez.
+                  
+Temps de travail pour le réaliser :\n50h
+Nombres de légendes total\ncréer à ce jour :\n102
+Origine du jeu :\nUn labyrinthe sur un paquet de gateau
+Date du premier labyrinthe créer :\n27 novembre 2017\nFormat A4 petit carreaux
+Merci à Florian Lasalle qui m'a\nbeaucoup aidé à me lancé quand\nj'était en 4ème.
+Et puis bah merci à vous.\nDe vous êtes autant investit\nà avoir cette clef rouge.
+J'espère que les stats vous aurons satisfait ehe.
+Je vous retiens pas plus que ça.\nÀ bientôt pour la suite !
+    */
