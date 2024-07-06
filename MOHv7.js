@@ -185,18 +185,18 @@ let lab = {
             },
             volcano: {
               armure: loadImage("/Images/Armure.png"),
-              verre: loadImage("/Images/Vverre.png"),
-              fer: loadImage("/Images/Vfer.png"),
+              verre: loadImage("/Images/VVerre.png"),
+              fer: loadImage("/Images/VFer.png"),
             },
             forest: {
               couteau: loadImage("/Images/Couteau.png"),
-              baton: loadImage("/Images/Fbaton.png"),
-              fer: loadImage("/Images/Ffer.png"),
+              baton: loadImage("/Images/FBaton.png"),
+              fer: loadImage("/Images/FFer.png"),
             },
             river: {
               palmes: loadImage("/Images/Palmes.png"),
-              baton: loadImage("/Images/Rbaton.png"),
-              cuir: loadImage("/Images/Rcuir.png"),
+              baton: loadImage("/Images/RBaton.png"),
+              cuir: loadImage("/Images/RCuir.png"),
             },
           },
           inGame: {
@@ -224,7 +224,7 @@ let lab = {
             },
             volcano: {
               fer: loadImage("/Images/VFer_Ficone.png"),
-              verre: loadImage("/Images/VVerre.png"),
+              verre: loadImage("/Images/VVerre_Ficone.png"),
             },
           },
         };
