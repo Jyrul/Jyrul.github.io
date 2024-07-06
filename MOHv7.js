@@ -14,6 +14,10 @@ let lab = {
       side: 0,
     },
     level: 0,
+    cancaSize: {
+      y: 400,
+      x: 400,
+    },
     is: {
       Switch: false,
       Teleport: false,
@@ -164,44 +168,66 @@ let lab = {
       if(lab.graph.new == true){
         //Asset sous Illustrator (UI)
         UIasset = {
-          key: {
-            Ykeyy: loadImage("/Images/Yellowkey.png"),
-            Rkeyy: loadImage("/Images/Redkey.png"),
-            SRkeyy: loadImage("/Images/RedkeyS.png"),
-            Gkeyy: loadImage("/Images/Greenkey.png"),
-            mat:{
-              Yring: loadImage("/Images/yellow_ring.png"),
-              Ystick: loadImage("/Images/yellow_stick.png"),
-              Gring: loadImage("/Images/green_ring.png"),
-              Gstick: loadImage("/Images/green_stick.png"),
-              Rring: loadImage("/Images/red_ring.png"),
-              Rstick: loadImage("/Images/red_stick.png"),
+          inInvent: {
+            key: {
+              Ykeyy: loadImage("/Images/Yellowkey.png"),
+              Rkeyy: loadImage("/Images/Redkey.png"),
+              SRkeyy: loadImage("/Images/RedkeyS.png"),
+              Gkeyy: loadImage("/Images/Greenkey.png"),
+              mat:{
+                Yring: loadImage("/Images/yellow_ring.png"),
+                Ystick: loadImage("/Images/yellow_stick.png"),
+                Gring: loadImage("/Images/green_ring.png"),
+                Gstick: loadImage("/Images/green_stick.png"),
+                Rring: loadImage("/Images/red_ring.png"),
+                Rstick: loadImage("/Images/red_stick.png"),
+              },
+            },
+            volcano: {
+              armure: loadImage("/Images/Armure.png"),
+              verre: loadImage("/Images/Vverre.png"),
+              fer: loadImage("/Images/Vfer.png"),
+            },
+            forest: {
+              couteau: loadImage("/Images/Couteau.png"),
+              baton: loadImage("/Images/Fbaton.png"),
+              fer: loadImage("/Images/Ffer.png"),
+            },
+            river: {
+              palmes: loadImage("/Images/Palmes.png"),
+              baton: loadImage("/Images/Rbaton.png"),
+              cuir: loadImage("/Images/Rcuir.png"),
             },
           },
-          volcano: {
-            armure: loadImage("/Images/Armure.png"),
-            verre: loadImage("/Images/Vverre.png"),
-            fer: loadImage("/Images/Vfer.png"),
-          },
-          forest: {
-            couteau: loadImage("/Images/Couteau.png"),
-            baton: loadImage("/Images/Fbaton.png"),
-            fer: loadImage("/Images/Ffer.png"),
-          },
-          river: {
-            palmes: loadImage("/Images/Palmes.png"),
-            baton: loadImage("/Images/Rbaton.png"),
-            cuir: loadImage("/Images/Rcuir.png"),
+          inGame: {
+            key: {
+              Ykeyy: loadImage("/Images/Yellowkey_Ficone.png"),
+              Rkeyy: loadImage("/Images/Redkey_Ficone.png"),
+              Gkeyy: loadImage("/Images/Greenkey_Ficone.png"),
+            },
+            keydoor: {
+              Ykeyy: loadImage("/Images/Yellowkey_Dicone.png"),
+              Rkeyy: loadImage("/Images/Redkey_Dicone.png"),
+              Gkeyy: loadImage("/Images/Greenkey_Dicone.png"),
+            },
+            keymat: {
+              RRing: loadImage("/Images/RSRing_Ficone.png"),
+              RBaton: loadImage("/Images/RSBaton_Ficone.png"),
+            },
+            river: {
+              cuir: loadImage("/Images/RCuir_Ficone.png"),
+              baton: loadImage("/Images/RBaton_Ficone.png"),
+            },
+            forest: {
+              fer: loadImage("/Images/FFer_Ficone.png"),
+              baton: loadImage("/Images/FBaton_Ficone.png"),
+            },
+            volcano: {
+              fer: loadImage("/Images/VFer_Ficone.png"),
+              verre: loadImage("/Images/VVerre.png"),
+            },
           },
         };
-  
-        //Asset Clef Game
-        Ykeyy = loadImage("/Images/Key_yellow_pic.png");
-        Ybigkeyy = loadImage("/Images/Key_yellow_pic_big.png");
-        Rkeyy = loadImage("/Images/Key_red_pic.png");
-        Rbigkeyy = loadImage("/Images/Key_red_pic_big.png");
-        Gkeyy = loadImage("/Images/Key_green_pic.png");
-        Gbigkeyy = loadImage("/Images/Key_green_pic_big.png");
       }
   
     }
@@ -307,7 +333,12 @@ let lab = {
           (lab.is.goBack = true),
           (lab.is.Notice = true),
 
-          resizeCanvas(400, 400);
+          //Définir la taille du canva
+          lab.cancaSize.x = 400;
+          lab.cancaSize.y = 400;
+
+          //Au cas ou le joueur recommence
+          resizeCanvas(lab.cancaSize.x, lab.cancaSize.y);
 
           //Position du joueur
           j.x = 0;
@@ -384,7 +415,12 @@ let lab = {
           (lab.is.goBack = false),
           (lab.is.Notice = true),
 
-          resizeCanvas(800, 400);
+          //Définir la taille du canva
+          lab.cancaSize.x = 800;
+          lab.cancaSize.y = 400;
+
+          //Au cas ou le joueur recommence
+          resizeCanvas(lab.cancaSize.x, lab.cancaSize.y);
     
           //Position du joueur
           j.x = 0;
@@ -441,7 +477,12 @@ let lab = {
           (lab.is.goBack = false),
           (lab.is.Notice = false),
 
-          resizeCanvas(1200, 600);
+          //Définir la taille du canva
+          lab.cancaSize.x = 1200;
+          lab.cancaSize.y = 600;
+
+          //Au cas ou le joueur recommence
+          resizeCanvas(lab.cancaSize.x, lab.cancaSize.y);
     
           //Position du joueur
           if(lab.state.levelDown == false){
@@ -533,7 +574,12 @@ let lab = {
           (lab.is.Shop = true),
           (lab.is.goBack = false),
             
-          resizeCanvas(600, 600);
+          //Définir la taille du canva
+          lab.cancaSize.x = 600;
+          lab.cancaSize.y = 600;
+
+          //Au cas ou le joueur recommence
+          resizeCanvas(lab.cancaSize.x, lab.cancaSize.y);
     
           //Position du joueur
           if(lab.state.levelDown == false){
@@ -613,8 +659,13 @@ let lab = {
           (lab.is.Convertizer = true),
           (lab.is.Shop = false),
           (lab.is.goBack = false),
-            
-          resizeCanvas(400, 600);
+          
+          //Définir la taille du canva
+          lab.cancaSize.x = 400;
+          lab.cancaSize.y = 600;
+
+          //Au cas ou le joueur recommence
+          resizeCanvas(lab.cancaSize.x, lab.cancaSize.y);
     
           //Position du joueur
           j.x = 4;
@@ -856,8 +907,12 @@ let lab = {
           (lab.is.Shop = false),
           (lab.is.goBack = false),
 
+          //Définir la taille du canva
+          lab.cancaSize.x = 400;
+          lab.cancaSize.y = 400;
+
           //Au cas ou le joueur recommence
-          resizeCanvas(400, 400);
+          resizeCanvas(lab.cancaSize.x, lab.cancaSize.y);
 
           //Position du joueur
           j.x = 2;
@@ -933,7 +988,7 @@ let lab = {
       }
  
       if (lab.is.Volcano == true) {
-        fill(230, 50, 110);
+        fill(220, 50, 90);
         //case forest
         for (let rowId = 0; rowId < WallTab[0].length; rowId++) {
           for (let colId = 0; colId < WallTab.length; colId++) {
@@ -962,19 +1017,17 @@ let lab = {
               RiverObject[index][2] == "R - baton" ||
               RiverObject[index][2] == "R - baaton"
             ) {
-              stroke(50);
-              line(
-                RiverObject[index][0] * gridsize_x + gridsize_x / 4,
-                RiverObject[index][1] * gridsize_y + (3 * gridsize_y) / 4,
-                RiverObject[index][0] * gridsize_x + (3 * gridsize_x) / 4,
-                RiverObject[index][1] * gridsize_y + gridsize_y / 4
+              image(
+                UIasset.inGame.river.baton,
+                gridsize_x * RiverObject[index][0] + 3,
+                gridsize_y * RiverObject[index][1] + 3
               );
               noStroke();
             } else {
-              rect(
-                RiverObject[index][0] * gridsize_x + gridsize_x / 4,
-                RiverObject[index][1] * gridsize_y + gridsize_y / 4,
-                gridsize_y / 2
+              image(
+                UIasset.inGame.river.cuir,
+                gridsize_x * RiverObject[index][0] + 3,
+                gridsize_y * RiverObject[index][1] + 3
               );
             }
           }
@@ -987,19 +1040,16 @@ let lab = {
         ForestObject.forEach((item, index, ForestObject) => {
           if (ForestObject[index][3] == true) {
             if (ForestObject[index][2] == "F - baton") {
-              stroke(50);
-              line(
-                ForestObject[index][0] * gridsize_x + gridsize_x / 4,
-                ForestObject[index][1] * gridsize_y + (3 * gridsize_y) / 4,
-                ForestObject[index][0] * gridsize_x + (3 * gridsize_x) / 4,
-                ForestObject[index][1] * gridsize_y + gridsize_y / 4
+              image(
+                UIasset.inGame.forest.baton,
+                gridsize_x * ForestObject[index][0] + 3,
+                gridsize_y * ForestObject[index][1] + 3
               );
-              noStroke();
             } else {
-              rect(
-                ForestObject[index][0] * gridsize_x + gridsize_x / 4,
-                ForestObject[index][1] * gridsize_y + gridsize_y / 4,
-                gridsize_y / 2
+              image(
+                UIasset.inGame.forest.fer,
+                gridsize_x * ForestObject[index][0] + 3,
+                gridsize_y * ForestObject[index][1] + 3
               );
             }
           }
@@ -1306,27 +1356,29 @@ let lab = {
     
       //KeyDoor
       KeyDoor.forEach((item, index, KeyDoor) => {
+        //Image de la clef pour la porte
         if (KeyDoor[index][3] == true) {
           if (KeyDoor[index][4] == ".YellowKey") {
             image(
-              Ykeyy,
+              UIasset.inGame.keydoor.Ykeyy,
               gridsize_x * KeyDoor[index][0] + 1,
               gridsize_y * KeyDoor[index][1] + 3
             );
           } else if (KeyDoor[index][4] == ".GreenKey") {
             image(
-              Gkeyy,
+              UIasset.inGame.keydoor.Gkeyy,
               gridsize_x * KeyDoor[index][0] + 1,
               gridsize_y * KeyDoor[index][1] + 3
             );
           } else if (KeyDoor[index][4] == ".RedKey") {
             image(
-              Rkeyy,
+              UIasset.inGame.keydoor.Rkeyy,
               gridsize_x * KeyDoor[index][0] + 1,
               gridsize_y * KeyDoor[index][1] + 3
             );
           }
     
+          //Dessin de la porte
           if (KeyDoor[index][2] == 2) {
             rect(
               gridsize_x * KeyDoor[index][0],
@@ -1350,19 +1402,19 @@ let lab = {
         if (KeyObject[index][2] == true) {
           if (KeyObject[index][3] == ".YellowKey") {
             image(
-              Ybigkeyy,
+              UIasset.inGame.key.Ykeyy,
               gridsize_x * KeyObject[index][0] + 3,
               gridsize_y * KeyObject[index][1] + 2
             );
           } else if (KeyObject[index][3] == ".GreenKey") {
             image(
-              Gbigkeyy,
+              UIasset.inGame.key.Gkeyy,
               gridsize_x * KeyObject[index][0] + 3,
               gridsize_y * KeyObject[index][1] + 2
             );
           } else if (KeyObject[index][3] == ".RedKey") {
             image(
-              Rbigkeyy,
+              UIasset.inGame.key.Rkeyy,
               gridsize_x * KeyObject[index][0] + 3,
               gridsize_y * KeyObject[index][1] + 2
             );
@@ -1370,34 +1422,25 @@ let lab = {
         }
       });
 
-      //KeyObject
+      //KeyMat
       if(lab.is.PermaKey == true){
-        stroke(20);
-        noFill();
         KeyMat.forEach((item, index, KeyMat) => {
           if (KeyMat[index][2] == true) {
-            if (KeyMat[index][3] == "r - baton") {
-              line(
-                KeyMat[index][0] * gridsize_x + 3 * gridsize_x / 4, KeyMat[index][1] * gridsize_x + gridsize_x / 4,
-                KeyMat[index][0] * gridsize_x + gridsize_x / 4, KeyMat[index][1] * gridsize_x + 3 * gridsize_x / 4
-              );
-            } else if (KeyMat[index][3] == "r - baaton") {
-              line(
-                KeyMat[index][0] * gridsize_x + 3 * gridsize_x / 4, KeyMat[index][1] * gridsize_x + gridsize_x / 4,
-                KeyMat[index][0] * gridsize_x + gridsize_x / 4, KeyMat[index][1] * gridsize_x + 3 * gridsize_x / 4
-              );
-            } else if (KeyMat[index][3] == "r - baaaton") {
-              line(
-                KeyMat[index][0] * gridsize_x + 3 * gridsize_x / 4, KeyMat[index][1] * gridsize_x + gridsize_x / 4,
-                KeyMat[index][0] * gridsize_x + gridsize_x / 4, KeyMat[index][1] * gridsize_x + 3 * gridsize_x / 4
+            if (KeyMat[index][3] == "r - baton" || KeyMat[index][3] == "r - baaton" || KeyMat[index][3] == "r - baaaton") {
+              image(
+                UIasset.inGame.keymat.RBaton,
+                gridsize_x * KeyMat[index][0] + 3,
+                gridsize_y * KeyMat[index][1] + 3
               );
             } else if (KeyMat[index][3] == "r - anneau") {
-              circle(KeyMat[index][0] * gridsize_x + gridsize_x / 2, KeyMat[index][1] * gridsize_y + gridsize_y / 2, 20
+              image(
+                UIasset.inGame.keymat.RRing,
+                gridsize_x * KeyMat[index][0] + 3,
+                gridsize_y * KeyMat[index][1] + 3
               );
             }
           }
         });
-        noStroke();
       }
     }
     function Leg_Shop(){
@@ -1578,7 +1621,7 @@ let lab = {
           //object
         fill(0);
         image(
-          UIasset.river.palmes,
+          UIasset.inInvent.river.palmes,
           shop.distance.object - shop.object.sizeX / 2,
           shop.distance.slot.y + shop.object.sizeY / 2
         );
@@ -1621,7 +1664,7 @@ let lab = {
           //object
         fill(0);
         image(
-          UIasset.forest.couteau,
+          UIasset.inInvent.forest.couteau,
           width / 2 - shop.object.sizeX / 2,
           shop.distance.slot.y + shop.object.sizeY / 2
         );
@@ -1665,7 +1708,7 @@ let lab = {
           //object
         fill(0);
         image(
-          UIasset.volcano.armure,
+          UIasset.inInvent.volcano.armure,
           width - shop.distance.object - shop.object.sizeX / 2, 
           shop.distance.slot.y + shop.object.sizeY / 2
         );
@@ -1711,7 +1754,7 @@ let lab = {
           //object
         fill(0);
         image(
-          UIasset.river.palmes,
+          UIasset.inInvent.river.palmes,
           shop.distance.object - shop.object.sizeX / 2,
           shop.distance.slot.y + shop.object.sizeY / 2
         );
@@ -1754,7 +1797,7 @@ let lab = {
           //object
         fill(0);
         image(
-          UIasset.forest.couteau,
+          UIasset.inInvent.forest.couteau,
           width / 2 - shop.object.sizeX / 2,
           shop.distance.slot.y + shop.object.sizeY / 2
         );
@@ -1798,7 +1841,7 @@ let lab = {
           //object
         fill(0);
         image(
-          UIasset.key.Rkeyy,
+          UIasset.inInvent.key.Rkeyy,
           width - shop.distance.object - shop.object.sizeX / 2, 
           shop.distance.slot.y + shop.object.sizeY / 2
         );
@@ -1889,6 +1932,8 @@ let lab = {
   
       //Objet
       if(Jiventory.length - 1 >= 1){
+        
+        
         //Initialiser les position pour le cas des objets
         UIdist.object.x = UIdist.space.onLeft;
         UIdist.object.y = UIdist.space.onTop;
@@ -1920,7 +1965,7 @@ let lab = {
           if(item == ".Palmes"){
             fill(0, 0, 200);
             image(
-              UIasset.river.palmes,
+              UIasset.inInvent.river.palmes,
               UIdist.object.x + UIdist.object.marge,
               UIdist.object.y + UIdist.object.marge
             );
@@ -1935,7 +1980,7 @@ let lab = {
           }else if(item == "R - baaton" ||item == "R - baton"){
             fill(0, 0, 150);
             image(
-              UIasset.river.baton,
+              UIasset.inInvent.river.baton,
               UIdist.object.x + UIdist.object.marge,
               UIdist.object.y + UIdist.object.marge
             );
@@ -1950,7 +1995,7 @@ let lab = {
           }else if(item == "R - cuir"){
             fill(0, 0, 150);
             image(
-              UIasset.river.cuir,
+              UIasset.inInvent.river.cuir,
               UIdist.object.x + UIdist.object.marge,
               UIdist.object.y + UIdist.object.marge
             );
@@ -1964,7 +2009,7 @@ let lab = {
           }else if(item == ".Couteau"){
             fill(0, 200, 0);
             image(
-              UIasset.forest.couteau,
+              UIasset.inInvent.forest.couteau,
               UIdist.object.x + UIdist.object.marge,
               UIdist.object.y + UIdist.object.marge
             );
@@ -1978,7 +2023,7 @@ let lab = {
           }else if(item == "F - fer"){
             fill(0, 150, 0);
             image(
-              UIasset.forest.fer,
+              UIasset.inInvent.forest.fer,
               UIdist.object.x + UIdist.object.marge,
               UIdist.object.y + UIdist.object.marge
             );
@@ -1992,7 +2037,7 @@ let lab = {
           }else if(item == "F - baton"){
             fill(0, 150, 0);
             image(
-              UIasset.forest.baton,
+              UIasset.inInvent.forest.baton,
               UIdist.object.x + UIdist.object.marge,
               UIdist.object.y + UIdist.object.marge
             );
@@ -2006,7 +2051,7 @@ let lab = {
           }else if(item == ".Armure"){
             fill(0, 200, 0);
             image(
-              UIasset.volcano.armure,
+              UIasset.inInvent.volcano.armure,
               UIdist.object.x + UIdist.object.marge,
               UIdist.object.y + UIdist.object.marge
             );
@@ -2020,7 +2065,7 @@ let lab = {
           }else if(item == "V - fer"){
             fill(0, 150, 0);
             image(
-              UIasset.volcano.fer,
+              UIasset.inInvent.volcano.fer,
               UIdist.object.x + UIdist.object.marge,
               UIdist.object.y + UIdist.object.marge
             );
@@ -2034,7 +2079,7 @@ let lab = {
           }else if(item == "V - verre"){
             fill(0, 150, 0);
             image(
-              UIasset.volcano.verre,
+              UIasset.inInvent.volcano.verre,
               UIdist.object.x + UIdist.object.marge,
               UIdist.object.y + UIdist.object.marge
             );
@@ -2049,7 +2094,7 @@ let lab = {
             if(j.permaObject.SRkeyy == true){
               fill(120, 0, 0);
               image(
-                UIasset.key.SRkeyy,
+                UIasset.inInvent.key.SRkeyy,
                 UIdist.object.x + UIdist.object.marge,
                 UIdist.object.y + UIdist.object.marge
               );
@@ -2064,7 +2109,7 @@ let lab = {
             }else{
               fill(120, 0, 0);
               image(
-                UIasset.key.Rkeyy,
+                UIasset.inInvent.key.Rkeyy,
                 UIdist.object.x + UIdist.object.marge,
                 UIdist.object.y + UIdist.object.marge
               );
@@ -2079,7 +2124,7 @@ let lab = {
           }else if(item == ".GreenKey"){
             fill(0, 120, 0);
             image(
-              UIasset.key.Gkeyy,
+              UIasset.inInvent.key.Gkeyy,
               UIdist.object.x + UIdist.object.marge,
               UIdist.object.y + UIdist.object.marge
             );
@@ -2093,7 +2138,7 @@ let lab = {
           }else if(item == ".YellowKey"){
             fill(120, 120, 0);
             image(
-              UIasset.key.Ykeyy,
+              UIasset.inInvent.key.Ykeyy,
               UIdist.object.x + UIdist.object.marge,
               UIdist.object.y + UIdist.object.marge
             );
@@ -2107,7 +2152,7 @@ let lab = {
           }else if(item == "r - baton" || item == "r - baaton" || item == "r - baaaton"){
             fill(120, 120, 0);
             image(
-              UIasset.key.mat.Rstick,
+              UIasset.inInvent.key.mat.Rstick,
               UIdist.object.x + UIdist.object.marge,
               UIdist.object.y + UIdist.object.marge
             );
@@ -2121,7 +2166,7 @@ let lab = {
           }else if(item == "r - anneau"){
             fill(120, 120, 0);
             image(
-              UIasset.key.mat.Rring,
+              UIasset.inInvent.key.mat.Rring,
               UIdist.object.x + UIdist.object.marge,
               UIdist.object.y + UIdist.object.marge
             );
