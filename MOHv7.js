@@ -139,32 +139,6 @@ let lab = {
   
     //gestion
     function preload() {
-      if(lab.graph.old == true){
-        //Asset sous Photoshop
-        background = loadImage("/Images/Fond.png");
-        player = loadImage("/Images/Player.png");
-      
-        wallV = loadImage("/Images/WallV.png");
-        wallH = loadImage("/Images/WallH.png");
-      
-        bigWallV = loadImage("/Images/BigWallV.png");
-        bigWallH = loadImage("/Images/BigWallH.png");
-      
-        Ykeyy = loadImage("/Images/Key_yellow_pic.png");
-        Ybigkeyy = loadImage("/Images/Key_yellow_pic_big.png");
-        Rkeyy = loadImage("/Images/Key_red_pic.png");
-        Rbigkeyy = loadImage("/Images/Key_red_pic_big.png");
-        Gkeyy = loadImage("/Images/Key_green_pic.png");
-        Gbigkeyy = loadImage("/Images/Key_green_pic_big.png");
-        keydoorcloseV = loadImage("Images/Keydoorclose.png");
-        keydooropenV = loadImage("Images/Keydooropen.png");
-      
-        closedoorH = loadImage("/Images/ClosedoorH.png");
-        closedoorV = loadImage("/Images/ClosedoorV.png");
-        opendoorH = loadImage("/Images/OpendoorH.png");
-        opendoorV = loadImage("/Images/OpendoorV.png");
-      }
-  
       if(lab.graph.new == true){
         //Asset sous Illustrator (UI)
         UIasset = {
