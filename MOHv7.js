@@ -1738,15 +1738,7 @@ let lab = {
           width - shop.distance.object - shop.object.sizeX / 2, 
           shop.distance.slot.y + shop.object.sizeY / 2
         );
-        /*
-        rect(
-          width - shop.distance.object - shop.object.sizeX / 2, 
-          shop.distance.slot.y + shop.object.sizeY / 2,
-          shop.object.sizeX,
-          shop.object.sizeY
-        );
-        */
-  
+        
           //titre
         textAlign(CENTER, CENTER);
         textSize(30);
@@ -3470,6 +3462,7 @@ let lab = {
           //Gain de l'objet
           append(Jiventory, ObjectShop[2][2]);
           Jiventory = sort(Jiventory, Jiventory.length);
+          j.go.volcano = true;
         }
       }
     }  
