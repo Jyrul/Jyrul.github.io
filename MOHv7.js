@@ -88,6 +88,24 @@ let lab = {
   let edition = {
     paintmode: 0,
   };
+
+  let UIdist = {
+    space: {
+      onLeft: 35,
+      onTop: 25,
+      betweenUI: 10,
+    },
+    money: {
+      height: 15,
+      ON: false,
+    },
+    object: {
+      x: 0,
+      y: 0,
+      marge: 7,
+      size: 40,
+    },
+  };
   
   var Jiventory = [""];
   var JiventoryKey = [""];
@@ -216,7 +234,7 @@ let lab = {
       if (lab.preloadlevel == true) {
         PreloadLevel();
       }
-      
+
       if(lab.state.game == true){
         switch (lab.level) {
           case -1:
@@ -285,7 +303,7 @@ let lab = {
         //Bouton pour sortir du Shop
         fill(0);
         textSize(10);
-        text("'P' pour sortir du Shop", width - 60, height - 20);
+        text("'P' pour sortir du Shop", 60, height - 20);
       }
     }
     
@@ -709,8 +727,11 @@ let lab = {
           //Taille de la grille
           lab.grid.x = 10;
           lab.grid.y = 10;
-    
-          resizeCanvas(400, 400);
+
+          //Taille du canva
+          lab.cancaSize.x = 400;
+          lab.cancaSize.y = 400;
+          resizeCanvas(lab.cancaSize.x, lab.cancaSize.y);
     
           //Taille d'une case
           gridsize_x = width / lab.grid.x;
@@ -750,7 +771,6 @@ let lab = {
           (lab.is.Shop = false),
           (lab.is.goBack = false),
           
-          
           //Position du joueur
           j.x = 2;
           j.y = 0;
@@ -763,6 +783,11 @@ let lab = {
           //Taille de la grille
           lab.grid.x = 10;
           lab.grid.y = 10;
+
+          //Taille du canva
+          lab.cancaSize.x = 400;
+          lab.cancaSize.y = 400;
+          resizeCanvas(lab.cancaSize.x, lab.cancaSize.y);
     
           //Taille d'une case
           gridsize_x = width / lab.grid.x;
@@ -798,7 +823,6 @@ let lab = {
           (lab.is.Shop = false),
           (lab.is.goBack = false),
           
-          
           //Position du joueur
           j.x = 3;
           j.y = 0;
@@ -811,6 +835,11 @@ let lab = {
           //Taille de la grille
           lab.grid.x = 7;
           lab.grid.y = 7;
+
+          //Taille du canva
+          lab.cancaSize.x = 400;
+          lab.cancaSize.y = 400;
+          resizeCanvas(lab.cancaSize.x, lab.cancaSize.y);
     
           //Taille d'une case
           gridsize_x = width / lab.grid.x;
@@ -853,6 +882,11 @@ let lab = {
           //Taille de la grille
           lab.grid.x = 5;
           lab.grid.y = 5;
+
+          //Taille du canva
+          lab.cancaSize.x = 400;
+          lab.cancaSize.y = 400;
+          resizeCanvas(lab.cancaSize.x, lab.cancaSize.y);
     
           //Taille d'une case
           gridsize_x = width / lab.grid.x;
@@ -1228,10 +1262,10 @@ let lab = {
 
       //mur extérieur
       rect(0, 0, wall.Width * 2, height);
-      rect(width, 0, -wall.Width * 2, height);
-      rect(0, 0, width, wall.Height * 2);
-      rect(0, height, width, -wall.Height * 2);
-  
+      rect(lab.grid.x * gridsize_x, 0, -wall.Width * 2, height);
+      rect(0, 0, lab.grid.x * gridsize_x, wall.Height * 2);
+      rect(0, height, lab.grid.x * gridsize_x, -wall.Height * 2);
+
       //sortie
       fill(220);
       if (lab.exit.side == 1) {
@@ -1241,7 +1275,7 @@ let lab = {
       } else if (lab.exit.side == 3) {
         rect(lab.exit.x * gridsize_x, height, gridsize_x, -wall.Height * 2);
       } else if (lab.exit.side == 4) {
-        rect(width, lab.exit.y * gridsize_y, -wall.Height * 2, gridsize_y);
+        rect(lab.grid.x * gridsize_x, lab.exit.y * gridsize_y, -wall.Height * 2, gridsize_y);
       }
 
       //entré
@@ -1581,6 +1615,24 @@ let lab = {
 
     //Affichage du Shop
     function ShopLevel7(){
+      
+      //Resize le canva si il y a quelque chose dans l'inventaire
+      if(j.moneynbr > 0 || Jiventory.length - 1 > 0){
+        //Calcule de distance
+          //x
+        const objectSlotSizeX = 2 * UIdist.object.marge + UIdist.object.size;
+          //y
+        let objectSlotSizeY = UIdist.object.marge + UIdist.object.size;
+        const trueJiventoryLength = Jiventory.length - 1;
+        objectSlotSizeY = objectSlotSizeY * trueJiventoryLength + UIdist.object.marge;
+
+        if(lab.level >= 3 && lab.cancaSize.x < lab.grid.x * gridsize_x + gridsize_x){
+          lab.cancaSize.x += objectSlotSizeX;
+          resizeCanvas(lab.cancaSize.x, lab.cancaSize.y);
+        }
+      }
+      
+      textStyle(BOLD);
       //Affichage object 1
       if(ObjectShop[0][1] == true){
           //slot
@@ -1714,6 +1766,24 @@ let lab = {
       Interface();
     }
     function ShopLevel6(){
+      
+      //Resize le canva si il y a quelque chose dans l'inventaire
+      if(j.moneynbr > 0 || Jiventory.length - 1 > 0){
+        //Calcule de distance
+          //x
+        const objectSlotSizeX = 2 * UIdist.object.marge + UIdist.object.size;
+          //y
+        let objectSlotSizeY = UIdist.object.marge + UIdist.object.size;
+        const trueJiventoryLength = Jiventory.length - 1;
+        objectSlotSizeY = objectSlotSizeY * trueJiventoryLength + UIdist.object.marge;
+
+        if(lab.level >= 3 && lab.cancaSize.x < lab.grid.x * gridsize_x + gridsize_x){
+          lab.cancaSize.x += objectSlotSizeX;
+          resizeCanvas(lab.cancaSize.x, lab.cancaSize.y);
+        }
+      }
+      
+      textStyle(BOLD);
       //Affichage object 1
       if(ObjectShop[0][1] == true){
           //slot
@@ -1732,14 +1802,6 @@ let lab = {
           shop.distance.object - shop.object.sizeX / 2,
           shop.distance.slot.y + shop.object.sizeY / 2
         );
-        /*
-        rect(
-          shop.distance.object - shop.object.sizeX / 2,
-          shop.distance.slot.y + shop.object.sizeY / 2,
-          shop.object.sizeX,
-          shop.object.sizeY
-        );
-        */
   
           //titre
         textAlign(CENTER, CENTER);
@@ -1775,15 +1837,7 @@ let lab = {
           width / 2 - shop.object.sizeX / 2,
           shop.distance.slot.y + shop.object.sizeY / 2
         );
-        /*
-        rect(
-          width / 2 - shop.object.sizeX / 2,
-          shop.distance.slot.y + shop.object.sizeY / 2,
-          shop.object.sizeX,
-          shop.object.sizeY
-        );
-        */
-  
+
           //titre
         textAlign(CENTER, CENTER);
         textSize(30);
@@ -1819,14 +1873,6 @@ let lab = {
           width - shop.distance.object - shop.object.sizeX / 2, 
           shop.distance.slot.y + shop.object.sizeY / 2
         );
-        /*
-        rect(
-          width - shop.distance.object - shop.object.sizeX / 2, 
-          shop.distance.slot.y + shop.object.sizeY / 2,
-          shop.object.sizeX,
-          shop.object.sizeY
-        );
-        */
   
           //titre
         textAlign(CENTER, CENTER);
@@ -1850,54 +1896,40 @@ let lab = {
   
     //Affichage de l'interface
     function Interface(){
-      //Initialisation de distance
-      let UIdist = {
-        space: {
-          onLeft: 35,
-          onTop: 25,
-          betweenUI: 10,
-        },
-        money: {
-          height: 25,
-          ON: false,
-        },
-        object: {
-          x: 0,
-          y: 0,
-          marge: 7,
-          size: 40,
-        },
-      };
-      
-      //Replacer l'UI selon la position du joueur
-      if(j.x <= lab.grid.x / 2){
-        UIdist.space.onLeft = width - UIdist.space.onLeft - UIdist.object.size;
+
+      if(j.moneynbr > 0 || Jiventory.length - 1 > 0){
+        //Calcule de distance
+          //x
+        const objectSlotSizeX = 2 * UIdist.object.marge + UIdist.object.size;
+          //y
+        let objectSlotSizeY = UIdist.object.marge + UIdist.object.size;
+        const trueJiventoryLength = Jiventory.length - 1;
+        objectSlotSizeY = objectSlotSizeY * trueJiventoryLength + UIdist.object.marge;
+
+        if(lab.level >= 3 && lab.cancaSize.x < lab.grid.x * gridsize_x + gridsize_x){
+          lab.cancaSize.x += objectSlotSizeX;
+          resizeCanvas(lab.cancaSize.x, lab.cancaSize.y);
+        }
+        
+        //Affichage des slot
+        fill(100, 255);
+        rect(
+          lab.grid.x * gridsize_x,
+          0,
+          objectSlotSizeX,
+          height
+        );
       }
-  
+
       //Argent
       if(j.moneynbr > 0){
         textStyle(BOLD);
         textAlign(LEFT, TOP);
         textSize(20);
+        fill(255);
   
-        //Resize le rectancle en fonction du nombre de caractère
-        if(j.moneynbr >= 100){
-          fill(0, 70);
-          rect(UIdist.space.onLeft, UIdist.space.onTop, 56, UIdist.money.height);
-          fill(255);
-          text(j.moneynbr + "o", UIdist.space.onLeft + UIdist.object.marge, UIdist.space.onTop + UIdist.object.marge);
-        }else if(j.moneynbr >= 10){
-          fill(0, 70);
-          rect(UIdist.space.onLeft, UIdist.space.onTop, 45 + UIdist.object.marge, UIdist.money.height + UIdist.object.marge);
-          fill(255);
-          text(j.moneynbr + "o", UIdist.space.onLeft + UIdist.object.marge, UIdist.space.onTop + UIdist.object.marge);
-        }else if(j.moneynbr > 0){
-          fill(0, 70);
-          rect(UIdist.space.onLeft, UIdist.space.onTop, 34, UIdist.money.height);
-          fill(255);
-          text(j.moneynbr + "o", UIdist.space.onLeft + UIdist.object.marge, UIdist.space.onTop + UIdist.object.marge);
-        }
-  
+        text(j.moneynbr + "o", lab.grid.x * gridsize_x + UIdist.object.marge, UIdist.object.marge);
+
         //L'argent est bien afficher
         if(UIdist.money.ON == false){
           UIdist.money.ON = true;
@@ -1906,33 +1938,15 @@ let lab = {
   
       //Objet
       if(Jiventory.length - 1 >= 1){
-        
-        
+
         //Initialiser les position pour le cas des objets
-        UIdist.object.x = UIdist.space.onLeft;
-        UIdist.object.y = UIdist.space.onTop;
+        UIdist.object.x = lab.grid.x * gridsize_x;
+        UIdist.object.y = 0;
         
         //Replacer la barre d'inventaire si l'argent est afficher
         if(UIdist.money.ON == true){
           UIdist.object.y += UIdist.money.height + UIdist.space.betweenUI;
         }
-  
-        //Calcule de distance
-          //x
-        const objectSlotSizeX = 2 * UIdist.object.marge + UIdist.object.size;
-          //y
-        let objectSlotSizeY = UIdist.object.marge + UIdist.object.size;
-        const trueJiventoryLength = Jiventory.length - 1;
-        objectSlotSizeY = objectSlotSizeY * trueJiventoryLength + UIdist.object.marge;
-  
-        //Affichage des slot
-        fill(0, 70);
-        rect(
-          UIdist.object.x,
-          UIdist.object.y,
-          objectSlotSizeX,
-          objectSlotSizeY
-        );
         
         //Afficher les objets dans les slot
         Jiventory.forEach((item, index, Jiventory) => {
@@ -1943,14 +1957,6 @@ let lab = {
               UIdist.object.x + UIdist.object.marge,
               UIdist.object.y + UIdist.object.marge
             );
-            /*
-            rect(
-              UIdist.object.x + UIdist.object.marge,
-              UIdist.object.y + UIdist.object.marge,
-              UIdist.object.size,
-              UIdist.object.size
-            );
-            */
           }else if(item == "R - baaton" ||item == "R - baton"){
             fill(0, 0, 150);
             image(
@@ -3059,7 +3065,7 @@ let lab = {
                 sprite.x + 1 <=
                   KeyDoor[index][0] * gridsize_x + wall.Width &&
         
-                KeyDoor[index][1] * gridsize_x <= sprite.y - gridsize_y / 2 + 1 &&
+                KeyDoor[index][1] * gridsize_y <= sprite.y - gridsize_y / 2 + 1 &&
                 sprite.y - gridsize_y / 2 + 1 <=
                   KeyDoor[index][1] * gridsize_y + wall.Width &&
         
@@ -3663,21 +3669,6 @@ let lab = {
           Jiventory = sort(Jiventory, Jiventory.length);
         }
       }
-
-      //Effet des object actifs
-      if(lab.level >= 6) {
-        if(j.go.river == false || j.go.forest == false || j.go.volcano == false){
-          Jiventory.forEach((item, index, Jiventory) => {
-            if(item == ".Palmes"){
-              j.go.river = true;
-            }else if(item == ".Couteau"){
-              j.go.forest = true;
-            }else if(item == ".Armure"){
-              j.go.volcano = true;
-            }
-          });
-        }
-      }
     }
   
     //656
@@ -3689,5 +3680,5 @@ let lab = {
     //1683
     //2361
     //2906
-    //3662
+    //3672
     //Ajouté la connectivité entre les niveaux
