@@ -70,6 +70,7 @@ let lab = {
     permaObject: {
       SRkeyy: false,
     },
+    guide: true,
   };
   
   let shop = {
@@ -895,6 +896,9 @@ let lab = {
           //Proportion des murs
           wall.Width = 3;
           wall.Height = 3;
+
+          //Guide des touche désactivé
+          j.guide = false;
     
           //Référencement des légendes
           WallTab = levels.level1.WallTab;
@@ -942,6 +946,9 @@ let lab = {
           //Proportion des murs
           wall.Width = 3;
           wall.Height = 3;
+
+          //Guide des touche activé
+          j.guide = true;
     
           //Référencement des légendes
           WallTab = levels.level0.WallTab;
@@ -2156,6 +2163,18 @@ let lab = {
           }
         });
       }
+
+      //Guide
+      if(j.guide == true){
+        textAlign(CENTER, CENTER);
+        textSize(10);
+        fill(0);
+        noStroke();
+        text("O", j.x * gridsize_x + gridsize_x / 2, j.y * gridsize_y + gridsize_y / 5);
+        text("K", j.x * gridsize_x + gridsize_x / 5, j.y * gridsize_y + gridsize_y / 2);
+        text("L", j.x * gridsize_x + gridsize_x / 2, j.y * gridsize_y + gridsize_y - gridsize_y / 5);
+        text("M", j.x * gridsize_x + gridsize_x - gridsize_x / 5, j.y * gridsize_y + gridsize_y / 2);
+      }
     }
   
     //Level
@@ -2692,6 +2711,8 @@ let lab = {
     function Level0() {
       //Trait
       Leg_Wall();
+
+      Interface();
     }
     
     
