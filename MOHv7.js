@@ -54,6 +54,7 @@ let lab = {
   let j = {
     x: 0,
     y: 0,
+    nobOfAction: 0,
     option: {
       up: true,
       left: true,
@@ -84,10 +85,6 @@ let lab = {
       sizeY: 40,
     },
     distance: {},
-  };
-
-  let edition = {
-    paintmode: 0,
   };
 
   let UIdist = {
@@ -156,7 +153,7 @@ let lab = {
 
   let Notice = [];
   
-    //gestion
+    //Chargement des assets
     function preload() {
       if(lab.graph.new == true){
         //Asset sous Illustrator (UI)
@@ -224,6 +221,7 @@ let lab = {
       }
   
     }
+
     function setup() {
       createCanvas(400, 400);
     }
@@ -2199,7 +2197,8 @@ let lab = {
       
       textAlign(LEFT, BOTTOM);
       textSize(12);
-      text("Insta : jyrul.creation\nBehance : Elias Rochelle", 20, height - 20);
+      text("Insta : jyrul.games\nBehance : Elias Rochelle", 20, height - 20);
+      text("Nombre de déplacement :\n" + j.nobOfAction, 20, 50);
 
       textAlign(CENTER, CENTER);
       textSize(40);
@@ -2907,6 +2906,9 @@ let lab = {
           
           if (j.option.up == true) {
             j.y -= 1;
+            if (lab.level < 9) {
+              j.nobOfAction += 1;
+            }
           }
         } else if (key === "l") {
           optiondown = true;
@@ -2976,6 +2978,9 @@ let lab = {
           
           if (j.option.down == true) {
             j.y += 1;
+            if (lab.level < 9) {
+              j.nobOfAction += 1;
+            }
           }
         } else if (key === "k") {
           optionleft = true;
@@ -3045,6 +3050,9 @@ let lab = {
   
           if (j.option.left == true) {
             j.x -= 1;
+            if (lab.level < 9) {
+              j.nobOfAction += 1;
+            }
           }
         } else if (key === "m") {
           optionright = true;
@@ -3118,6 +3126,9 @@ let lab = {
   
           if (j.option.right == true) {
             j.x += 1;
+            if (lab.level < 9) {
+              j.nobOfAction += 1;
+            }
           }
         }
       
@@ -3515,7 +3526,7 @@ let lab = {
     }
 
 
-    //Gestion d'Inventaire a uni sac
+    //Gestion d'Inventaire
     function JiventoryManager(){
       //Keyobject
       if (lab.is.Key == true) {
@@ -3580,30 +3591,31 @@ let lab = {
         lab.is.River == true &&
         j.go.river == false
       ) {
+        let nbrOfRObject = 0;
         Convertizer.forEach((item, index, Convertizer) => {
           //Coordonée du joueur sur la case
           if (j.x == Convertizer[index][0] && j.y == Convertizer[index][1]) {
             //Check s'il a tout les objets
             Jiventory.forEach((item, index, Jiventory) => {
               if (Jiventory[index] == "R - cuir") {
-                Jiventory.forEach((item, index, Jiventory) => {
-                  if (Jiventory[index] == "R - baton") {
-                    Jiventory.forEach((item, index, Jiventory) => {
-                      if (Jiventory[index] == "R - baaton") {
-                        
-                        const findIndexObject = (element) => element > "R";
-                        let idObject = Jiventory.findIndex(findIndexObject);
-  
-                        Jiventory.splice(idObject, 3, ".Palmes");
-                        Jiventory = sort(Jiventory, Jiventory.length);
-
-                        j.go.river = true;
-                      }
-                    });
-                  }
-                });
+                nbrOfRObject += 1;
+              }else if (Jiventory[index] == "R - baton") {
+                nbrOfRObject += 1;
+              }else if (Jiventory[index] == "R - baaton") {
+                nbrOfRObject += 1;
               }
             });
+
+            //Si oui, alors on les transforme en palmes
+            if(nbrOfRObject == 3){
+              const findIndexObject = (element) => element > "R";
+              let idObject = Jiventory.findIndex(findIndexObject);
+
+              Jiventory.splice(idObject, 3, ".Palmes");
+              Jiventory = sort(Jiventory, Jiventory.length);
+
+              j.go.river = true;
+            }
           }
         });
       }
@@ -3614,24 +3626,28 @@ let lab = {
         lab.is.Forest == true &&
         j.go.forest == false
       ) {
+        let nbrOfFObject = 0;
         Convertizer.forEach((item, index, Convertizer) => {
+          //Coordonée du joueur sur la case
           if (j.x == Convertizer[index][0] && j.y == Convertizer[index][1]) {
             Jiventory.forEach((item, index, Jiventory) => {
+              //Check s'il a tout les objets
               if (Jiventory[index] == "F - baton") {
-                Jiventory.forEach((item, index, Jiventory) => {
-                  if (Jiventory[index] == "F - fer") {
-                    
-                    const findIndexObject = (element) => element > "F";
-                    let idObject = Jiventory.findIndex(findIndexObject);
-  
-                    Jiventory.splice(idObject, 2, ".Couteau");
-                    Jiventory = sort(Jiventory, Jiventory.length);
-  
-                    j.go.forest = true;
-                  }
-                });
+                nbrOfFObject += 1;
+              }else if (Jiventory[index] == "F - fer") {
+                nbrOfFObject += 1;
               }
             });
+
+            if(nbrOfFObject == 2){
+              const findIndexObject = (element) => element > "F";
+              let idObject = Jiventory.findIndex(findIndexObject);
+
+              Jiventory.splice(idObject, 2, ".Couteau");
+              Jiventory = sort(Jiventory, Jiventory.length);
+
+              j.go.forest = true;              
+            }
           }
         });
       }
@@ -3641,31 +3657,33 @@ let lab = {
         lab.is.Convertizer == true &&
         lab.is.Key == true
       ) {
+        let nbrOfSRObject = 0;
         Convertizer.forEach((item, index, Convertizer) => {
+          //Coordonée du joueur sur la case
           if (j.x == Convertizer[index][0] && j.y == Convertizer[index][1]) {
             Jiventory.forEach((item, index, Jiventory) => {
+              //Check s'il a tout les objets
               if (Jiventory[index] == "r - baton") {
-                Jiventory.forEach((item, index, Jiventory) => {
-                  if (Jiventory[index] == "r - baaton") {
-                    Jiventory.forEach((item, index, Jiventory) => {
-                      if (Jiventory[index] == "r - baaton") {
-                        Jiventory.forEach((item, index, Jiventory) => {
-                          if (Jiventory[index] == "r - anneau") {
-                            j.permaObject.SRkeyy = true;
-
-                            const findIndexObject = (element) => element > "r";
-                            let idObject = Jiventory.findIndex(findIndexObject);
-          
-                            Jiventory.splice(idObject, 4, ".RedKey");
-                            Jiventory = sort(Jiventory, Jiventory.length);
-                          }
-                        });
-                      }
-                    });
-                  }
-                });
+                nbrOfSRObject += 1;
+              }else if (Jiventory[index] == "r - baaton") {
+                nbrOfSRObject += 1;
+              }else if (Jiventory[index] == "r - baaton") {
+                nbrOfSRObject += 1;
+              }else if (Jiventory[index] == "r - anneau") {
+                nbrOfSRObject += 1;
               }
             });
+
+            //Si oui, alors on les transforme en palmes
+            if (nbrOfSRObject == 4) {
+              j.permaObject.SRkeyy = true;
+
+              const findIndexObject = (element) => element > "r";
+              let idObject = Jiventory.findIndex(findIndexObject);
+
+              Jiventory.splice(idObject, 4, ".RedKey");
+              Jiventory = sort(Jiventory, Jiventory.length);
+            }
           }
         });
       }
