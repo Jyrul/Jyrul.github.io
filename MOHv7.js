@@ -107,6 +107,12 @@ let lab = {
   let gridsize_x = 0;
   let gridsize_y = 0;
   
+  //Quelle est la direction prise ?
+  let optionright = false;
+  let optionleft = false;
+  let optionup = false;
+  let optiondown = false;
+
   //Grille de murs
   let WallTab = [];
   
@@ -122,16 +128,12 @@ let lab = {
   let KeyObject = [];
   let KeyMat = [];
   
-  //Grille de Rivière et emplacement des objets
-  let RiverTab = [];
+  //Grille de chaque zone
+  let ZoneTab = [];
+
+  //Object de chaque zone
   let RiverObject = [];
-  
-  //Grille de Forêt et emplacement des objets
-  let ForestTab = [];
   let ForestObject = [];
-  
-  //Grille de Volcan et emplacement des objets
-  let VolcanoTab = [];
   let VolcanoObject = [];
 
   //Emplacement des Convertisseurs
@@ -362,9 +364,7 @@ let lab = {
 
           //Referencement des légendes
           WallTab = levels.level_1.WallTab;
-          RiverTab = levels.level_1.RiverTab;
-          ForestTab = levels.level_1.ForestTab;
-          VolcanoTab = levels.level_1.VolcanoTab;
+          ZoneTab = levels.level_1.ZoneTab;
           Notice = levels.level_1.Notice;
           Jiventory = levels.level_1.Jiventory;
           break;
@@ -446,7 +446,7 @@ let lab = {
           WallTab = levels.level8.WallTab;
           Teleport = levels.level8.Teleport;
           KeyDoor = levels.level8.KeyDoor;
-          ForestTab = levels.level8.ForestTab;
+          ZoneTab = levels.level8.ZoneTab;
           VolcanoTab = levels.level8.VolcanoTab;
           Notice = levels.level8.Notice;
           Jiventory = levels.level8.Jiventory;
@@ -535,11 +535,9 @@ let lab = {
           KeyDoor = levels.level7.KeyDoor;
           KeyObject = levels.level7.KeyObject;
           KeyMat = levels.level7.KeyMat;
-          RiverTab = levels.level7.RiverTab;
+          ZoneTab = levels.level7.ZoneTab;
           RiverObject = levels.level7.RiverObject;
-          ForestTab = levels.level7.ForestTab;
           ForestObject = levels.level7.ForestObject;
-          VolcanoTab = levels.level7.VolcanoTab;
           VolcanoObject = levels.level7.VolcanoObject;
           ElectricDoor = levels.level7.ElectricDoor;
           ElectricInterupt = levels.level7.ElectricInterupt;
@@ -624,9 +622,8 @@ let lab = {
           Teleport = levels.level6.Teleport;
           KeyDoor = levels.level6.KeyDoor;
           KeyObject = levels.level6.KeyObject;
-          RiverTab = levels.level6.RiverTab;
+          ZoneTab = levels.level6.ZoneTab;
           RiverObject = levels.level6.RiverObject;
-          ForestTab = levels.level6.ForestTab;
           ForestObject = levels.level6.ForestObject;
           ElectricDoor = levels.level6.ElectricDoor;
           ElectricInterupt = levels.level6.ElectricInterupt;
@@ -687,9 +684,8 @@ let lab = {
           WallSwitch = levels.level5.WallSwitch;
           KeyDoor = levels.level5.KeyDoor;
           KeyObject = levels.level5.KeyObject;
-          RiverTab = levels.level5.RiverTab;
+          ZoneTab = levels.level5.ZoneTab;
           RiverObject = levels.level5.RiverObject;
-          ForestTab = levels.level5.ForestTab;
           ForestObject = levels.level5.ForestObject;
           Convertizer = levels.level5.Convertizer;
           ElectricDoor = levels.level5.ElectricDoor;
@@ -745,7 +741,7 @@ let lab = {
           WallSwitch = levels.level4.WallSwitch;
           KeyDoor = levels.level4.KeyDoor;
           KeyObject = levels.level4.KeyObject;
-          RiverTab = levels.level4.RiverTab;
+          ZoneTab = levels.level4.ZoneTab;
           RiverObject = levels.level4.RiverObject;
           Convertizer = levels.level4.Convertizer;
           ElectricDoor = levels.level4.ElectricDoor;
@@ -958,62 +954,37 @@ let lab = {
     
     //Affichage des Legendes
     function Leg_Zone() {
-      if (lab.is.River == true) {
-        fill(90, 170, 245);
-        //case river
-        for (let rowId = 0; rowId < WallTab[0].length; rowId++) {
-          for (let colId = 0; colId < WallTab.length; colId++) {
-            let map = RiverTab[colId][rowId];
-            switch (map) {
-              case "R":
-                rect(
-                  rowId * gridsize_x,
-                  colId * gridsize_y,
-                  gridsize_x,
-                  gridsize_y
-                ); //mur haut
-                break;
-            }
-          }
-        }
-      }
-    
-      if (lab.is.Forest == true) {
-        fill(50, 220, 110);
-        //case forest
-        for (let rowId = 0; rowId < WallTab[0].length; rowId++) {
-          for (let colId = 0; colId < WallTab.length; colId++) {
-            let map = ForestTab[colId][rowId];
-            switch (map) {
-              case "F":
-                rect(
-                  rowId * gridsize_x,
-                  colId * gridsize_y,
-                  gridsize_x,
-                  gridsize_y
-                ); //mur haut
-                break;
-            }
-          }
-        }
-      }
- 
-      if (lab.is.Volcano == true) {
-        fill(220, 50, 90);
-        //case forest
-        for (let rowId = 0; rowId < WallTab[0].length; rowId++) {
-          for (let colId = 0; colId < WallTab.length; colId++) {
-            let map = VolcanoTab[colId][rowId];
-            switch (map) {
-              case "V":
-                rect(
-                  rowId * gridsize_x,
-                  colId * gridsize_y,
-                  gridsize_x,
-                  gridsize_y
-                ); //mur haut
-                break;
-            }
+      for (let rowId = 0; rowId < WallTab[0].length; rowId++) {
+        for (let colId = 0; colId < WallTab.length; colId++) {
+          let map = ZoneTab[colId][rowId];
+          switch (map) {
+            case "R":
+              fill(90, 170, 245);
+              rect(
+                rowId * gridsize_x,
+                colId * gridsize_y,
+                gridsize_x,
+                gridsize_y
+              ); //mur haut
+              break;
+            case "F":
+              fill(50, 220, 110);
+              rect(
+                rowId * gridsize_x,
+                colId * gridsize_y,
+                gridsize_x,
+                gridsize_y
+              ); //mur haut
+              break;
+            case "V":
+              fill(220, 50, 90);
+              rect(
+                rowId * gridsize_x,
+                colId * gridsize_y,
+                gridsize_x,
+                gridsize_y
+              ); //mur haut
+              break;
           }
         }
       }
@@ -2706,12 +2677,13 @@ let lab = {
   
       //Game Mode
       if(lab.state.game == true){
+       
         //Quelle est la direction prise ?
-        let optionright = false;
-        let optionleft = false;
-        let optionup = false;
-        let optiondown = false;
-        
+        optionright = false;
+        optionleft = false;
+        optionup = false;
+        optiondown = false;
+
         //Dans quel direction le joueur peut se déplacer ?
         j.option.right = true;
         j.option.left = true;
@@ -3117,7 +3089,7 @@ let lab = {
             }
           }
         }
-      
+    
         //////// ////////
       
         //Changement de Level
@@ -3159,6 +3131,28 @@ let lab = {
 
         //////// ////////
       
+        //Zone
+        if(lab.is.Forest || lab.is.River || lab.is.Volcano){
+          let zonemap = ZoneTab[j.y][j.x];
+          switch (zonemap) {
+            case "R":
+              if (j.go.river == false) {
+                goBack();
+              }
+              break;
+            case "F":
+              if (j.go.forest == false) {
+                goBack();
+              }
+              break;
+            case "V":
+              if (j.go.volcano == false) {
+                goBack();
+              }
+              break;
+          }
+        }
+
         //Teleport
         if (lab.is.Teleport == true) {
           Teleport.forEach((item, index, Teleport) => {
@@ -3170,60 +3164,6 @@ let lab = {
               j.y = Teleport[index][1];
             }
           });
-        }
-      
-        //River
-        if(lab.is.River == true){
-          if (j.go.river == false) {
-            let rivermap = RiverTab[j.y][j.x];
-            if (rivermap == "R") {
-              if (optionup == true) {
-                j.y += 1;
-              } else if (optiondown == true) {
-                j.y -= 1;
-              } else if (optionleft == true) {
-                j.x += 1;
-              } else if (optionright == true) {
-                j.x -= 1;
-              }
-            }
-          }
-        }
-  
-        //Forest
-        if(lab.is.Forest == true){
-          if (j.go.forest == false) {
-            let forestmap = ForestTab[j.y][j.x];
-            if (forestmap == "F") {
-              if (optionup == true) {
-                j.y += 1;
-              } else if (optiondown == true) {
-                j.y -= 1;
-              } else if (optionleft == true) {
-                j.x += 1;
-              } else if (optionright == true) {
-                j.x -= 1;
-              }
-            }
-          }
-        }
-
-        //Volcano
-        if(lab.is.Volcano == true){
-          if (j.go.volcano == false) {
-            let volcanomap = VolcanoTab[j.y][j.x];
-            if (volcanomap == "V") {
-              if (optionup == true) {
-                j.y += 1;
-              } else if (optiondown == true) {
-                j.y -= 1;
-              } else if (optionleft == true) {
-                j.x += 1;
-              } else if (optionright == true) {
-                j.x -= 1;
-              }
-            }
-          }
         }
   
         //Switch
@@ -3697,6 +3637,19 @@ let lab = {
       }
     }
   
+    //Optimisation
+    function goBack() {
+      if (optionup == true) {
+        j.y += 1;
+      } else if (optiondown == true) {
+        j.y -= 1;
+      } else if (optionleft == true) {
+        j.x += 1;
+      } else if (optionright == true) {
+        j.x -= 1;
+      }
+    }
+
     //656
     //541
     //576
