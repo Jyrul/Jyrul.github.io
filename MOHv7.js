@@ -33,16 +33,12 @@ let lab = {
       Notice: false,
     },
     state: {
-      game: true,
+      game: false,
       edition: false,
       levelDown: false,
     },
     allowToEdit: false,
     paintvalue: "00",
-    graph: {
-      old: false,
-      new: true,
-    },
     preloadlevel: true,
   };
   
@@ -71,7 +67,6 @@ let lab = {
     permaObject: {
       SRkeyy: false,
     },
-    guide: true,
   };
   
   let shop = {
@@ -155,10 +150,10 @@ let lab = {
   
     //Chargement des assets
     function preload() {
-      if(lab.graph.new == true){
-        //Asset sous Illustrator (UI)
-        UIasset = {
-          inInvent: {
+      //Asset sous Illustrator (UI)
+      UIasset = {
+        titleScreen: loadImage("/Images/Title_Screen.jpg"),
+        inInvent: {
             key: {
               Ykeyy: loadImage("/Images/Yellowkey.png"),
               Rkeyy: loadImage("/Images/Redkey.png"),
@@ -188,8 +183,8 @@ let lab = {
               baton: loadImage("/Images/RBaton.png"),
               cuir: loadImage("/Images/RCuir.png"),
             },
-          },
-          inGame: {
+        },
+        inGame: {
             key: {
               Ykeyy: loadImage("/Images/Yellowkey_Ficone.png"),
               Rkeyy: loadImage("/Images/Redkey_Ficone.png"),
@@ -216,10 +211,8 @@ let lab = {
               fer: loadImage("/Images/VFer_Ficone.png"),
               verre: loadImage("/Images/VVerre_Ficone.png"),
             },
-          },
-        };
-      }
-  
+        },
+      };
     }
 
     function setup() {
@@ -230,10 +223,12 @@ let lab = {
       noStroke();
       rect(0, 0, width, height);
     
+      //Chargement de toute les données sur chaque labyritnhe (cf. levels.js)
       if (lab.preloadlevel == true) {
         PreloadLevel();
       }
 
+      //Check de l'état du jeu (afficher l'écran du jeu ? l'écran du shop ? écran titre ?)
       if(lab.state.game == true){
         switch (lab.level) {
           case -1:
@@ -303,6 +298,9 @@ let lab = {
         fill(0);
         textSize(10);
         text("'P' pour sortir du Shop", 60, height - 20);
+      }
+      else{
+        image(UIasset.titleScreen, 0, 0);
       }
     }
     
@@ -1893,7 +1891,7 @@ let lab = {
   
     //Affichage de l'interface
     function Interface(){
-
+      //Affichage de la barre d'inventaire
       if(j.moneynbr > 0 || Jiventory.length - 1 > 0){
         //Calcule de distance
           //x
@@ -2160,18 +2158,6 @@ let lab = {
             UIdist.object.y += UIdist.object.size + UIdist.object.marge;
           }
         });
-      }
-
-      //Guide
-      if(j.guide == true){
-        textAlign(CENTER, CENTER);
-        textSize(10);
-        fill(0);
-        noStroke();
-        text("O", j.x * gridsize_x + gridsize_x / 2, j.y * gridsize_y + gridsize_y / 5);
-        text("K", j.x * gridsize_x + gridsize_x / 5, j.y * gridsize_y + gridsize_y / 2);
-        text("L", j.x * gridsize_x + gridsize_x / 2, j.y * gridsize_y + gridsize_y - gridsize_y / 5);
-        text("M", j.x * gridsize_x + gridsize_x - gridsize_x / 5, j.y * gridsize_y + gridsize_y / 2);
       }
     }
   
@@ -3168,6 +3154,7 @@ let lab = {
         if(lab.level == 9 && j.x == 16 && j.y == 7){
           lab.preloadlevel = true;
           lab.level = 0;
+          lab.state.game = false;
         }
 
         //////// ////////
@@ -3338,7 +3325,7 @@ let lab = {
       }
   
       //Shop Mode
-      if(lab.is.Shop == true && Shop[3] == true){
+      else if(lab.is.Shop == true && Shop[3] == true){
         //Quitter le Shop
         if (key === "p"){
           Shop[3] = false;
@@ -3346,6 +3333,91 @@ let lab = {
         }
       }
   
+      //Édition de labyrinthe
+      else if(lab.allowToEdit == true){
+        //quitter
+      if (key === "2" && lab.state.edition == true){
+        lab.state.edition = false;
+      }
+        //entrer
+      if (key === "2"&& lab.state.edition == false){
+        lab.state.edition = true;
+      }
+
+        //mode de peinture
+      if(lab.state.edition == true){
+        switch (key) {
+          //0 mur
+          case "y":
+            lab.paintvalue = "00";
+            break;
+          
+          //1 mur
+          case "a":
+            lab.paintvalue = "01";
+            break;
+          case "z":
+            lab.paintvalue = "02";
+            break;
+          case "e":
+            lab.paintvalue = "03";
+            break;
+          case "r":
+            lab.paintvalue = "04";
+            break;
+
+          //2 murs
+          case "q":
+            lab.paintvalue = "07";
+            break;
+          case "s":
+            lab.paintvalue = "08";
+            break;
+          case "d":
+            lab.paintvalue = "09";
+            break;
+          case "f":
+            lab.paintvalue = "10";
+            break;
+          
+          case "h":
+            lab.paintvalue = "05";
+            break;
+          case "j":
+            lab.paintvalue = "06";
+            break;
+        
+          //3 murs
+          case "w":
+            lab.paintvalue = "11";
+            break;
+          case "x":
+            lab.paintvalue = "12";
+            break;
+          case "c":
+            lab.paintvalue = "13";
+            break;
+          case "v":
+            lab.paintvalue = "14";
+            break;
+        }
+        
+        console.log(lab.paintvalue);
+
+        //Envoyer à la console
+        if(key === "n"){
+          console.log(WallTab);
+        }
+      }      
+      }
+
+      //Quitter l'écran titre
+      else{
+        if(key === "p"){
+          lab.state.game = true;
+        }
+      }
+
       //Forcer le Switch entre Shop <-> Game
       if (key === "4" && Shop[3] == false){
         Shop[3] = true;
@@ -3353,84 +3425,6 @@ let lab = {
       }else if (key === "4" && Shop[3] == true){
         Shop[3] = false;
         lab.state.game = true;
-      }
-
-      //Édition de labyrinthe
-      if(lab.allowToEdit == true){
-          //quitter
-        if (key === "2" && lab.state.edition == true){
-          lab.state.edition = false;
-        }
-          //entrer
-        if (key === "2"&& lab.state.edition == false){
-          lab.state.edition = true;
-        }
-
-          //mode de peinture
-        if(lab.state.edition == true){
-          switch (key) {
-            //0 mur
-            case "y":
-              lab.paintvalue = "00";
-              break;
-            
-            //1 mur
-            case "a":
-              lab.paintvalue = "01";
-              break;
-            case "z":
-              lab.paintvalue = "02";
-              break;
-            case "e":
-              lab.paintvalue = "03";
-              break;
-            case "r":
-              lab.paintvalue = "04";
-              break;
-
-            //2 murs
-            case "q":
-              lab.paintvalue = "07";
-              break;
-            case "s":
-              lab.paintvalue = "08";
-              break;
-            case "d":
-              lab.paintvalue = "09";
-              break;
-            case "f":
-              lab.paintvalue = "10";
-              break;
-            
-            case "h":
-              lab.paintvalue = "05";
-              break;
-            case "j":
-              lab.paintvalue = "06";
-              break;
-          
-            //3 murs
-            case "w":
-              lab.paintvalue = "11";
-              break;
-            case "x":
-              lab.paintvalue = "12";
-              break;
-            case "c":
-              lab.paintvalue = "13";
-              break;
-            case "v":
-              lab.paintvalue = "14";
-              break;
-          }
-          
-          console.log(lab.paintvalue);
-
-          //Envoyer à la console
-          if(key === "n"){
-            console.log(WallTab);
-          }
-        }      
       }
       
     }
