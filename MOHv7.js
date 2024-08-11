@@ -1878,7 +1878,7 @@ let lab = {
         }
         
         //Affichage des slot
-        fill(100, 255);
+        fill(255);
         rect(
           lab.grid.x * gridsize_x,
           0,
