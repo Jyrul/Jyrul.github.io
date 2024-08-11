@@ -1892,7 +1892,7 @@ let lab = {
         textStyle(BOLD);
         textAlign(LEFT, TOP);
         textSize(20);
-        fill(255);
+        fill(0);
   
         text(j.moneynbr + "o", lab.grid.x * gridsize_x + UIdist.object.marge, UIdist.object.marge);
 
